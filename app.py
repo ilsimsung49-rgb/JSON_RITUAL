@@ -1,10 +1,10 @@
 import streamlit as st
 
 # [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v8.9", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v9.0", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v8.9 [THE COPY SYMBOL FIX]
+#  PROJECT JSON RITUAL v9.0 [ULTRA MINIMALIST OUTPUT]
 # ==========================================================
 
 STYLE_DB = {
@@ -81,12 +81,12 @@ def inject_styles():
         background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; 
     }
     
-    /* RESTORE COPY SYMBOL (st.code logic) & FIX OVERLAP */
+    /* ULTRA CLARITY & COPY SYMBOL */
     div[data-testid="stCodeBlock"] pre {
         background-color: #080808 !important;
         border: 2px solid #333 !important;
         padding: 25px !important;
-        line-height: 2.2 !important; /* CRITICAL: PREVENTS OVERLAP */
+        line-height: 2.2 !important; /* PREVENTS OVERLAP */
         border-radius: 12px;
     }
     div[data-testid="stCodeBlock"] code {
@@ -95,7 +95,6 @@ def inject_styles():
         font-size: 1.25rem !important;
         white-space: pre-wrap !important;
     }
-    /* Make the Copy Button (Symbol) more visible */
     div[data-testid="stCodeBlock"] button {
         background-color: rgba(255, 232, 0, 0.2) !important;
         color: #FFE800 !important;
@@ -112,7 +111,7 @@ def inject_styles():
 
 def generate_full_ritual(title):
     core = title or "개벽"
-    lyrics = f"[INTRO]\n[Professional Instrumental Session - DECONSTRUCTED AVANT-GARDE]\n\n"
+    lyrics = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n\n"
     lyrics += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
     lyrics += f"[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
     lyrics += f"[CHORUS - THE DIGITAL CHONJI-GONGSA]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
@@ -128,7 +127,7 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.9 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v9.0 ]</div>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["⚡ SETUP", "🎵 STUDIO", "📖 OUTPUT"])
 
@@ -159,10 +158,8 @@ def main():
             st.session_state["s_ok"] = generate_full_ritual(title)
 
         if "p_ok" in st.session_state:
-            st.markdown('<div style="color:#FFF; font-family:Bebas Neue; font-size:1.5rem; margin-bottom:10px;">1. STYLE PROMPT (복사 기호는 우측 상단)</div>', unsafe_allow_html=True)
+            # NO TITLES, NO LABELS - JUST THE CONTENT
             st.code(st.session_state["p_ok"], language="text")
-            
-            st.markdown('<div style="color:#FFF; font-family:Bebas Neue; font-size:1.5rem; margin:30px 0 10px 0;">2. MASTER LYRICS (복사 기호는 우측 상단)</div>', unsafe_allow_html=True)
             st.code(st.session_state["s_ok"], language="text")
 
 if __name__ == "__main__":
