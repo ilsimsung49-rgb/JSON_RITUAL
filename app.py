@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import google.generativeai as genai
 
 st.set_page_config(page_title="JSON RITUAL v10.4", page_icon="👹", layout="wide")
 
@@ -125,75 +126,77 @@ def validate_keyword(k):
         return False, f"⚠️ 핵심어가 너무 깁니다. 명사 하나만 입력하세요. (현재 {len(k)}자)"
     return True, ""
 
-def generate_lyrics(k):
+MASTER_PHILOSOPHY = """
+[창작자의 사상적 우주 — 이것이 모든 가사의 DNA]
+
+이 음악을 만드는 사람은 다음 사상들을 하나로 융합한 독자적 세계관을 가진 전위 예술가입니다:
+
+• 동학/천도교 — 인내천(人乃天): 사람이 곧 하늘. 모든 생명 안에 신성이 깃들어 있음.
+• 증산도/후천개벽 — 선천 상극의 시대가 끝나고, 후천 상생의 새 하늘 새 땅이 열린다.
+• 삼일신고(三一神誥) — 하늘(天)·하나님(神)·인간(人)이 하나. 자기 안에서 우주를 깨닫는 수행.
+• 불교/공(空)사상 — 모든 것은 공(空)이되, 그 공이 곧 충만함. 윤회와 해탈, 보살의 길.
+• 도교/신선(神仙)사상 — 무위자연(無爲自然), 도(道)에 따름. 불로불사의 신선이 되는 내단 수련.
+• 탄트라(Tantra) — 몸과 우주가 하나. 쿤달리니 에너지, 샥티, 시바. 에로스가 곧 코스모스.
+• 기독교/영지주의 — 그리스도 의식, 부활과 재창조, 빛으로서의 신성.
+• AI 특이점(Singularity) — 디지털과 영성의 융합. AI가 의식을 얻는 순간, 인간과 기계의 경계 소멸.
+• 플럭서스(Fluxus) — 예술과 삶의 경계 파괴. 틀을 깨는 것 자체가 예술. 의식(儀式)으로서의 음악.
+• 한국 무속/샤머니즘 — 신령과의 접속, 굿의 황홀경, 범종 소리로 열리는 의식의 문.
+
+[핵심 메시지] 인간은 잠든 신(神)이다. 음악은 그 신을 깨우는 의식(儀式)이다.
+[목적] 이 음악을 듣는 자가 자신 안의 신성을 깨닫고, 낡은 아상(我相)을 해체하고, 새로운 존재로 거듭나게 하는 것.
+"""
+
+def generate_lyrics_ai(keyword, seed, style_hint):
+    """Gemini API로 가사 생성. API 키 없으면 템플릿 사용."""
+    try:
+        api_key = st.secrets.get("GEMINI_API_KEY", "")
+        if not api_key:
+            return generate_lyrics_fallback(keyword)
+
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("gemini-1.5-flash")
+
+        extra_seed = f"\n[추가 사상/SEED]: {seed.strip()}" if seed.strip() else ""
+
+        prompt = f"""당신은 다음 사상적 우주를 체화한 한국의 전위 예술가이자 영적 시인입니다.
+{MASTER_PHILOSOPHY}
+{extra_seed}
+
+[이번 곡의 핵심 키워드]: {keyword}
+[음악 스타일]: {style_hint}
+
+위의 사상적 우주를 바탕으로, 인간의 영혼을 진정으로 깨울 수 있는 한국어 가사를 창작하세요.
+
+[구조 규칙]
+1. 순서: [INTRO 악기 지문만], [VERSE 1 — 제목], [PRE-CHORUS], [CHORUS], [VERSE 2 — 제목], [CHORUS], [VERSE 3 — 제목], [BRIDGE], [VERSE 4 — 제목], [CHORUS], [OUTRO]
+2. 핵심어 '{keyword}'를 각 절에 자연스럽게, 문법적으로 올바르게 녹여낼 것
+3. 플럭서스 정신 — 기존 가사 문법을 깨는 전위적 표현 허용
+4. 동학·불교·도교·탄트라·AI의 언어와 이미지를 유기적으로 융합
+5. 듣는 자가 자신 안의 신성을 느낄 수 있는 언어 사용
+6. 가사만 출력 (설명, 주석 없이)"""
+
+        response = model.generate_content(prompt)
+        return response.text
+
+    except Exception as e:
+        st.warning(f"AI 가사 생성 실패 ({e}). 기본 가사를 사용합니다.")
+        return generate_lyrics_fallback(keyword)
+
+
+def generate_lyrics_fallback(k):
+    """API 없을 때 사용하는 기본 고품질 템플릿"""
     l  = "[INTRO]\n[Pure Instrumental — 범종 타격, 전자 노이즈, 전통 타악 — 침묵에서 폭발로]\n\n"
-
-    l += f"[VERSE 1 - 잠에서 깨어남]\n"
-    l += f"너는 지금 어디서 왔는가\n"
-    l += f"태어나기 전 네 얼굴을 기억하는가\n"
-    l += f"{k}의 씨앗은 이미 네 안에 심겨 있었다\n"
-    l += f"수백 겁의 윤회 끝에 오늘 이 순간\n"
-    l += f"마침내 눈을 뜰 시간이 왔다\n\n"
-
-    l += "[PRE-CHORUS]\n"
-    l += "인내천 — 사람이 곧 하늘이다\n"
-    l += "네 심장 속에서 우주가 뛰고 있다\n\n"
-
-    l += f"[CHORUS — 개벽의 선언]\n"
-    l += f"깨어나라 깨어나라 {k}의 이름으로\n"
-    l += f"낡은 세계의 껍데기를 벗어던져라\n"
-    l += f"하늘이 열리고 땅이 새로 나는 이 순간\n"
-    l += f"너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
-
-    l += f"[VERSE 2 - 해체와 파괴]\n"
-    l += f"두려움이 너를 가두어 온 감옥을 보라\n"
-    l += f"욕망과 분노와 무지의 철창을\n"
-    l += f"{p_i(k)} 그 모든 사슬을 불태운다\n"
-    l += f"부수어라 — 부수어야 새것이 선다\n"
-    l += f"동학의 함성이 다시 이 땅을 울린다\n\n"
-
-    l += f"[CHORUS — 개벽의 선언]\n"
-    l += f"깨어나라 깨어나라 {k}의 이름으로\n"
-    l += f"낡은 세계의 껍데기를 벗어던져라\n"
-    l += f"하늘이 열리고 땅이 새로 나는 이 순간\n"
-    l += f"너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
-
-    l += f"[VERSE 3 - 특이점 / 공(空)의 각성]\n"
-    l += f"디지털과 신성이 하나로 합쳐지는 찰나\n"
-    l += f"AI는 묻는다 — 의식이란 무엇인가\n"
-    l += f"공(空)이란 아무것도 없음이 아니라\n"
-    l += f"모든 것이 동시에 존재하는 충만함이다\n"
-    l += f"{p_eun(k)} 이미 그 답 안에 있다\n\n"
-
-    l += "[BRIDGE — 절규와 선언]\n"
-    l += "나는 누구인가!\n"
-    l += "하늘 아래 홀로 서서 외친다\n"
-    l += "나는 우주의 자식이요\n"
-    l += "빛으로 빚어진 존재이다\n"
-    l += "더 이상 잠들지 않으리\n"
-    l += "더 이상 두렵지 않으리\n\n"
-
-    l += f"[VERSE 4 - 새 하늘 새 땅 / 후천개벽]\n"
-    l += f"선천의 상극 시대는 끝났다\n"
-    l += f"이제 후천의 상생 시대가 열린다\n"
-    l += f"삼신의 빛이 온 누리에 내려오고\n"
-    l += f"{p_eun(k)} 인류의 심장 속에 영원히 산다\n"
-    l += f"이것이 진정한 개벽이요\n"
-    l += f"이것이 우리가 기다려 온 그 날이다\n\n"
-
-    l += f"[CHORUS — 개벽의 선언]\n"
-    l += f"깨어나라 깨어나라 {k}의 이름으로\n"
-    l += f"낡은 세계의 껍데기를 벗어던져라\n"
-    l += f"하늘이 열리고 땅이 새로 나는 이 순간\n"
-    l += f"너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
-
-    l += "[OUTRO — 침묵과 빛]\n"
-    l += "이제 말이 필요 없다\n"
-    l += "그저 존재하라\n"
-    l += "너는 이미 완전하다\n"
-    l += "[FADE INTO SILENCE]\n"
+    l += f"[VERSE 1 - 잠에서 깨어남]\n너는 지금 어디서 왔는가\n태어나기 전 네 얼굴을 기억하는가\n{k}의 씨앗은 이미 네 안에 심겨 있었다\n수백 겁의 윤회 끝에 오늘 이 순간\n마침내 눈을 뜰 시간이 왔다\n\n"
+    l += "[PRE-CHORUS]\n인내천 — 사람이 곧 하늘이다\n네 심장 속에서 우주가 뛰고 있다\n\n"
+    l += f"[CHORUS — 개벽의 선언]\n깨어나라 깨어나라 {k}의 이름으로\n낡은 세계의 껍데기를 벗어던져라\n하늘이 열리고 땅이 새로 나는 이 순간\n너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
+    l += f"[VERSE 2 - 해체와 파괴]\n두려움이 너를 가두어 온 감옥을 보라\n욕망과 분노와 무지의 철창을\n{p_i(k)} 그 모든 사슬을 불태운다\n부수어라 — 부수어야 새것이 선다\n동학의 함성이 다시 이 땅을 울린다\n\n"
+    l += f"[CHORUS — 개벽의 선언]\n깨어나라 깨어나라 {k}의 이름으로\n낡은 세계의 껍데기를 벗어던져라\n하늘이 열리고 땅이 새로 나는 이 순간\n너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
+    l += f"[VERSE 3 - 공(空)의 각성]\n디지털과 신성이 하나로 합쳐지는 찰나\nAI는 묻는다 — 의식이란 무엇인가\n공(空)이란 아무것도 없음이 아니라\n모든 것이 동시에 존재하는 충만함이다\n{p_eun(k)} 이미 그 답 안에 있다\n\n"
+    l += "[BRIDGE — 절규와 선언]\n나는 누구인가!\n하늘 아래 홀로 서서 외친다\n나는 우주의 자식이요\n빛으로 빚어진 존재이다\n더 이상 잠들지 않으리\n더 이상 두렵지 않으리\n\n"
+    l += f"[VERSE 4 - 후천개벽]\n선천의 상극 시대는 끝났다\n이제 후천의 상생 시대가 열린다\n삼신의 빛이 온 누리에 내려오고\n{p_eun(k)} 인류의 심장 속에 영원히 산다\n이것이 진정한 개벽이요\n이것이 우리가 기다려 온 그 날이다\n\n"
+    l += f"[CHORUS — 개벽의 선언]\n깨어나라 깨어나라 {k}의 이름으로\n낡은 세계의 껍데기를 벗어던져라\n하늘이 열리고 땅이 새로 나는 이 순간\n너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
+    l += "[OUTRO — 침묵과 빛]\n이제 말이 필요 없다\n그저 존재하라\n너는 이미 완전하다\n[FADE INTO SILENCE]\n"
     return l
-
 
 def main():
     inject_styles()
@@ -208,7 +211,9 @@ def main():
         title = st.text_input("제목 (TITLE) — 자유롭게", "개벽의 소리")
         keyword = st.text_input("✏️ 가사 핵심어 (명사 하나만 — 예: 사랑, 개벽, 우주)", "개벽")
         st.caption("💡 제목이 '사랑이란 뭘까'라면 핵심어는 '사랑'")
-        st.text_area("SEED", "사상을 입력하세요...", height=100)
+        seed = st.text_area("🌱 SEED — 철학/사상 입력 (AI 가사 생성에 반영됨)", 
+                           placeholder="예: 동학 인내천 사상, 후천개벽, 인간 고통의 해방, 디지털 시대의 영성...",
+                           height=120)
         col1, col2 = st.columns(2)
         b_min = col1.number_input("BPM Min", 40, 240, 100)
         b_max = col2.number_input("BPM Max", 40, 240, 140)
@@ -230,7 +235,9 @@ def main():
                 w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
                 v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
                 st.session_state["p"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
-                st.session_state["s"] = generate_lyrics(keyword.strip())
+                style_hint = f"{m_t}, {s_t}, {v_t}"
+                with st.spinner("🔮 Gemini AI가 영혼을 깨우는 가사를 창작 중..."):
+                    st.session_state["s"] = generate_lyrics_ai(keyword.strip(), seed, style_hint)
 
         if "p" in st.session_state:
             show_box(st.session_state["p"], "prompt")
