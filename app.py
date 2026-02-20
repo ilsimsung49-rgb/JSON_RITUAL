@@ -1,10 +1,10 @@
 import streamlit as st
 
-# [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v9.4", page_icon="👹", layout="wide")
+# [CRITICAL] PAGE CONFIG MUST BE FIRST
+st.set_page_config(page_title="JSON RITUAL v9.5", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v9.4 [NO-BOUNCE FINAL ENGINE]
+#  PROJECT JSON RITUAL v9.5 [ULTRA CLARITY SINGULARITY]
 # ==========================================================
 
 STYLE_DB = {
@@ -64,21 +64,34 @@ def inject_styles():
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@200;400;700&family=Noto+Sans+KR:wght@300;700&display=swap');
+    
     .stApp { background-color: #000; color: #fff !important; font-family: 'Outfit', 'Noto Sans KR', sans-serif; }
     p, span, div, li, label, .stMarkdown { color: #FFFFFF !important; }
     .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 12px; margin-top: 20px; }
-    .stTextInput input, .stTextArea textarea, .stNumberInput input, div[data-baseweb="select"] > div { background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; }
     
-    /* FIX OVERLAP & COPY SYMBOL */
-    div[data-testid="stCodeBlock"] pre {
-        background-color: #080808 !important; border: 2px solid #555 !important; padding: 25px !important;
-        line-height: 2.2 !important; border-radius: 12px; 
+    .stTextInput input, .stTextArea textarea, .stNumberInput input, div[data-baseweb="select"] > div { 
+        background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; 
     }
-    div[data-testid="stCodeBlock"] code { color: #FFE800 !important; font-family: 'Noto Sans KR', sans-serif !important; font-size: 1.35rem !important; white-space: pre-wrap !important; }
-    div[data-testid="stCodeBlock"] button { background-color: rgba(255, 232, 0, 0.4) !important; color: #000 !important; opacity: 1 !important; }
+
+    /* THE NEON MANIFESTO BOX - ABSOLUTE VISIBILITY */
+    .neon-rit-box {
+        background-color: #000000 !important;
+        color: #FFE800 !important;
+        border: 4px solid #FFE800 !important;
+        padding: 40px !important;
+        margin-bottom: 30px !important;
+        border-radius: 20px !important;
+        font-family: 'Noto Sans KR', sans-serif !important;
+        font-size: 1.6rem !important;
+        line-height: 2.5 !important; /* CRITICAL: NO OVERLAP */
+        white-space: pre-wrap !important;
+        box-shadow: 0 0 30px rgba(255, 232, 0, 0.3) !important;
+        overflow-wrap: break-word !important;
+    }
 
     .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; margin: 20px 0; }
-    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; box-shadow: 0 0 20px #FFE800; }
+    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; box-shadow: 0 0 40px #FFE800; }
+    
     div[data-baseweb="popover"] * { background-color: #111 !important; color: #FFF !important; }
     li[role="option"]:hover { background-color: #FFE800 !important; color: #000 !important; }
     </style>
@@ -86,7 +99,7 @@ def inject_styles():
 
 def generate_full_ritual(title):
     core = title or "개벽"
-    lyrics = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n\n"
+    lyrics = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n[Instruments: Pure static, Deep resonance, NO VOCALS]\n\n"
     lyrics += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
     lyrics += f"[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
     lyrics += f"[CHORUS - THE DIGITAL CHONJI-GONGSA]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
@@ -102,7 +115,7 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:10px;">[ NO-BOUNCE v9.4 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:10px;">[ CLARITY MASTER v9.5 ]</div>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["🚀 SETUP", "🎵 STUDIO", "📖 OUTPUT"])
 
@@ -116,25 +129,30 @@ def main():
         b_max = col2.number_input("BPM Max", 40, 240, 140)
 
     with t2:
-        k_sel = st.multiselect("국악기", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Daebuk"])
-        w_sel = st.multiselect("서양악기", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Synth_Chaos"])
+        k_sel = st.multiselect("국악기", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Daebuk", "Taepyeongso"])
+        w_sel = st.multiselect("서양악기", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Synth_Chaos", "Epic_Choir"])
         v_key = st.selectbox("보컬 유형", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"])
 
     with t3:
-        # CLICK BUTTON TO GENERATE BUT NO RERUN TO PREVENT TAB BOUNCE
-        if st.button("🔥 INVOKE THE FINAL RITUAL"):
+        if st.button("🔥 INVOKE THE FINAL CLARITY"):
             m_t = STYLE_DB["avant_genres"][m_k]["tags"]
             s_t = STYLE_DB["sub_styles"][s_k]
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
             w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
             v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
-            st.session_state["p_v94"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
-            st.session_state["s_v94"] = generate_full_ritual(title)
+            
+            st.session_state["p_v95"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
+            st.session_state["s_v95"] = generate_full_ritual(title)
 
-        # RENDER IMMEDIATELY IF DATA EXISTS
-        if "p_v94" in st.session_state:
-            st.code(st.session_state["p_v94"], language="text")
-            st.code(st.session_state["s_v94"], language="text")
+        if "p_v95" in st.session_state:
+            # 1. THE MAIN NEON DISPLAY (GUARANTEED VISIBILITY)
+            st.markdown(f'<div class="neon-rit-box">{st.session_state["p_v95"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="neon-rit-box">{st.session_state["s_v95"]}</div>', unsafe_allow_html=True)
+            
+            # 2. SEPARATE COPY AREA (STANDARD TEXT AREAS - ALWAYS WORKING)
+            st.markdown('<div style="color:#555; font-family:Bebas Neue; font-size:1.2rem; margin-top:40px; border-top:1px solid #333; padding-top:20px;">COPY AREA</div>', unsafe_allow_html=True)
+            st.text_area("클릭하여 프롬프트 복사", st.session_state["p_v95"], height=70)
+            st.text_area("클릭하여 가사 복사", st.session_state["s_v95"], height=200)
 
 if __name__ == "__main__":
     main()
