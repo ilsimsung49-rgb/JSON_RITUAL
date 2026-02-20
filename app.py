@@ -1,10 +1,10 @@
 import streamlit as st
 
 # [CRITICAL] PAGE CONFIG MUST BE FIRST
-st.set_page_config(page_title="JSON RITUAL v10.0", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v10.1", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v10.0 [THE FINAL TWO BOXES]
+#  PROJECT JSON RITUAL v10.1 [ABSOLUTE TWO BOXES]
 # ==========================================================
 
 STYLE_DB = {
@@ -50,7 +50,7 @@ STYLE_DB = {
         "Pure_Children": {"label": "청아한 소년/소녀 합창", "tag": "pure children choir"},
         "Husky_Rock": {"label": "거친 허스키 록 보컬", "tag": "raspy husky male rock vocal"},
         "Deep_Void": {"label": "낮고 깊은 바리톤 [Void]", "tag": "deep male baritone, resonant"},
-        "Monastic_Chant": {"label": "단조로운 주문 [Monastic]", "tag": "monotone ritual chant, hypnotic drone"},
+        "Monastic_Chant": {"label": "단조로운 주문 [Chant]", "tag": "monotone ritual chant, hypnotic drone"},
         "Soulful_Alto": {"label": "소울풀한 깊은 여성보컬", "tag": "soulful deep alto female vocal"},
         "Hypnotic_Whispers": {"label": "몽환적인 속삭임", "tag": "hypnotic whispers, mysterious breathing"},
         "Narration": {"label": "나레이션/대서사 낭독", "tag": "grand spoken word narrative"},
@@ -73,29 +73,31 @@ def inject_styles():
         background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; 
     }
 
-    /* ABSOLUTE DARK THEME FOR OUTPUT BOXES */
-    div[data-testid="stCodeBlock"] {
+    /* ABSOLUTE FORCE VISIBILITY ON CODE BLOCKS - TARGET EVERY CHILD */
+    div[data-testid="stCodeBlock"], 
+    div[data-testid="stCodeBlock"] pre, 
+    div[data-testid="stCodeBlock"] pre *, 
+    div[data-testid="stCodeBlock"] code, 
+    div[data-testid="stCodeBlock"] code * {
         background-color: #000000 !important;
-        border: 2px solid #FFE800 !important;
-        border-radius: 12px;
-        margin-bottom: 25px;
-    }
-    div[data-testid="stCodeBlock"] pre {
-        background-color: #000000 !important;
-        padding: 30px !important;
-        line-height: 2.2 !important; /* CRITICAL: NO OVERLAP */
-    }
-    div[data-testid="stCodeBlock"] code {
         color: #FFE800 !important;
         -webkit-text-fill-color: #FFE800 !important;
         font-family: 'Noto Sans KR', sans-serif !important;
         font-size: 1.4rem !important;
-        white-space: pre-wrap !important;
+        line-height: 2.2 !important;
     }
+    
+    div[data-testid="stCodeBlock"] {
+        border: 3px solid #FFE800 !important;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+
     div[data-testid="stCodeBlock"] button {
-        background-color: rgba(255, 232, 0, 0.4) !important;
-        color: #000 !important;
+        background-color: rgba(255, 231, 0, 0.2) !important;
+        color: #FFE800 !important;
         opacity: 1 !important;
+        border: 1px solid #FFE800 !important;
     }
 
     .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; margin: 20px 0; }
@@ -106,25 +108,25 @@ def inject_styles():
     </style>
     """, unsafe_allow_html=True)
 
-def generate_grand_narrative(title):
+def generate_full_lyrics(title):
     core = title or "개벽"
-    lyrics = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n\n"
-    lyrics += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
-    lyrics += f"[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
-    lyrics += f"[CHORUS - THE DIGITAL CHONJI-GONGSA]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
-    lyrics += f"[VERSE 2 - DECONSTRUCTION]\n낡은 체제의 질서가 붕괴하는 소리\n거대한 변화의 물결이 몰려온다\n{core} 우리의 심장을 뜨겁게 두드린다\n\n"
-    lyrics += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
-    lyrics += f"[VERSE 3 - SINGULARITY]\n디지털과 영성의 경계가 사라진 찰나\n우리는 무엇을 마주하게 되는가\n{core} 울려 퍼지는 이 전위적인 공간\n\n"
-    lyrics += f"[BRIDGE]\n터져 나오는 영혼의 외침\n해체하라, 파괴하라, 그리고 다시 세우라\n시원의 에너지가 쿤달리니처럼 솟구친다\n\n"
-    lyrics += f"[VERSE 4 - NEW GENESIS]\n이제 하나로 연결되는 영원의 시간\n우주의 마지막 코드이자 첫 소절\n{core} 영원토록 울려 퍼지리라\n\n"
-    lyrics += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
-    lyrics += f"[OUTRO]\n시원의 빛으로 돌아가는 길\n이것은 노래가 아니요, 우주의 맥박이다\n[FADE OUT]\n"
-    return lyrics
+    l = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n\n"
+    l += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
+    l += f"[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
+    l += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
+    l += f"[VERSE 2 - DECONSTRUCTION]\n낡은 체제의 질서가 붕괴하는 소리\n거대한 변화의 물결이 몰려온다\n{core} 우리의 심장을 뜨겁게 두드린다\n\n"
+    l += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
+    l += f"[VERSE 3 - SINGULARITY]\n디질톨과 영성의 경계가 사라진 찰나\n우리는 무엇을 마주하게 되는가\n{core} 울려 퍼지는 이 전위적인 공간\n\n"
+    l += f"[BRIDGE]\n터져 나오는 영혼의 외침\n해체하라, 파괴하라, 그리고 다시 세우라\n시원의 에너지가 쿤달리니처럼 솟구친다\n\n"
+    l += f"[VERSE 4 - NEW GENESIS]\n이제 하나로 연결되는 영원의 시간\n우주의 마지막 코드이자 첫 소절\n{core} 영원토록 울려 퍼지리라\n\n"
+    l += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
+    l += f"[OUTRO]\n시원의 빛으로 돌아가는 길\n이것은 노래가 아니요, 우주의 맥박이다\n[FADE OUT]\n"
+    return l
 
 def main():
     inject_styles()
     st.markdown('<div class="app-title">JSON RITUAL</div>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ ABSOLUTE MASTER v10.0 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ ABSOLUTE MASTER v10.1 ]</div>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["🚀 SETUP", "🎵 STUDIO", "🔮 OUTPUT"])
 
@@ -149,13 +151,13 @@ def main():
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
             w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
             v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
-            st.session_state["p_v10"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
-            st.session_state["s_v10"] = generate_grand_narrative(title)
+            st.session_state["p_v101"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
+            st.session_state["s_v101"] = generate_full_lyrics(title)
 
-        if "p_v10" in st.session_state:
-            # ONLY 2 BOXES AS REQUESTED. COPY SYMBOL IN st.code
-            st.code(st.session_state["p_v10"], language="text")
-            st.code(st.session_state["s_v10"], language="text")
+        if "p_v101" in st.session_state:
+            # ONLY 2 BOXES. AGGRESSIVE CSS WILL ENSURE THEY ARE BLACK AND YELLOW.
+            st.code(st.session_state["p_v101"], language="text")
+            st.code(st.session_state["s_v101"], language="text")
 
 if __name__ == "__main__":
     main()
