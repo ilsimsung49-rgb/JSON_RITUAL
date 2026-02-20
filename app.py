@@ -2,8 +2,11 @@ import streamlit as st
 import random
 import re
 
+# 1. MUST BE FIRST STREAMLIT COMMAND
+st.set_page_config(page_title="JSON RITUAL v6.4", layout="wide")
+
 # ==========================================================
-#  PROJECT JSON RITUAL v6.4.2 [STABLE]
+#  PROJECT JSON RITUAL v6.4.3 [ULTRA-STABLE]
 # ==========================================================
 
 STYLE_DB = {
@@ -92,15 +95,12 @@ def inject_css():
     h1, h2, h3 { color: #FFF !important; }
     .stCode { background-color: #111 !important; color: #FFE800 !important; }
     .app-title { color: var(--accent) !important; text-align: center; font-size: 3rem; }
-    div[data-baseweb="popover"] div, div[data-baseweb="menu"] div { background-color: #1A1A1A !important; color: #FFF !important; }
     </style>
     """, unsafe_allow_html=True)
 
 def main():
-    st.set_page_config(page_title="JSON RITUAL v6.4", layout="wide")
     inject_css()
     st.markdown('<h1 class="app-title">PROJECT JSON RITUAL</h1>', unsafe_allow_html=True)
-    
     t1, t2, t3 = st.tabs(["SETUP", "STUDIO", "OUTPUT"])
     with t1:
         title = st.text_input("SONG TITLE", "개벽의 소리")
@@ -115,8 +115,8 @@ def main():
         if st.button("GENERATE"):
             ki_t = [STYLE_DB["korean_instruments"][k]["suno_tag"] for k in k_sel]
             wi_t = [STYLE_DB["western_instruments"][w]["suno_tag"] for w in w_sel]
-            s = {"rhythm_key": r_key, "vocal_key": v_key, "b_min": b_min, "b_max": b_max}
-            st.session_state["p"] = build_suno_prompt(s, ki_t, wi_t)
+            s_dict = {"rhythm_key": r_key, "vocal_key": v_key, "b_min": b_min, "b_max": b_max}
+            st.session_state["p"] = build_suno_prompt(s_dict, ki_t, wi_t)
             st.session_state["s"] = build_full_song(title, "ritual_4_verses", k_sel, w_sel)
         if "p" in st.session_state:
             st.code(st.session_state["p"])
