@@ -2,11 +2,11 @@ import streamlit as st
 import random
 import re
 
-# [CRITICAL] STREAMLIT PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v6.9", page_icon="👹", layout="wide")
+# [CRITICAL] MUST BE FIRST
+st.set_page_config(page_title="JSON RITUAL v7.0", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v6.9 [THE FLUXUS SPIRIT RESTORED]
+#  PROJECT JSON RITUAL v7.0 [THE AVANT-GARDE SINGULARITY]
 # ==========================================================
 
 STYLE_DB = {
@@ -22,6 +22,7 @@ STYLE_DB = {
         "Janggu": {"label": "장구 [Janggu]", "suno_tag": "janggu drum"},
         "Kkwaenggwari": {"label": "꽱과리 [Gong]", "suno_tag": "kkwaenggwari gong"},
         "Jing": {"label": "징 [Jing]", "suno_tag": "jing large gong"},
+        "Buk": {"label": "북 [Buk Barrel Drum]", "suno_tag": "buk barrel drum"}
     },
     "western_instruments": {
         "Elec_Guitar_Dist": {"label": "Elec Guitar [Distortion]", "suno_tag": "electric guitar, distortion"},
@@ -47,20 +48,34 @@ STYLE_DB = {
     },
     "western_rhythms": {
         "Rock": {"label": "록 [Rock]", "suno_prompt": "classic rock, power chords"},
-        "Metal": {"label": "메탈 [Metal]", "suno_prompt": "heavy metal, distorted riffs"},
-        "Blues": {"label": "블루스 [Blues]", "suno_prompt": "slow blues shuffle"},
-        "EDM": {"label": "EDM / Electronic", "suno_prompt": "EDM, dance music"},
-        "Jazz": {"label": "재즈 [Jazz]", "suno_prompt": "jazz, swing rhythm"},
-        "Folk": {"label": "포크 [Folk]", "suno_prompt": "acoustic folk"},
-        "Progressive": {"label": "프로그레시브", "suno_prompt": "progressive arrangement"},
+        "Hard_Rock_Metal": {"label": "하드록 / 메탈", "suno_prompt": "heavy metal, distorted riffs, double bass drum"},
+        "Blues": {"label": "블루스 [Blues]", "suno_prompt": "slow blues shuffle, soulful guitar"},
+        "EDM": {"label": "EDM / Electronic", "suno_prompt": "EDM, dance music, synthesizer drop"},
+        "Jazz": {"label": "재즈 [Jazz]", "suno_prompt": "jazz, swing rhythm, walking bass"},
+        "Folk": {"label": "포크 [Folk]", "suno_prompt": "acoustic folk, fingerpicking"},
+        "Progressive": {"label": "프로그레시브", "suno_prompt": "progressive rock, complex arrangement"},
+        "Techno": {"label": "테크노 [Techno]", "suno_prompt": "hypnotic techno, repetitive pulse"},
+        "Industrial": {"label": "인더스트리얼", "suno_prompt": "industrial, metallic textures, mechanical noise"}
+    },
+    "vocal_types": {
+        "male_rock": {"label": "남성 - 거친 록 [Raspy]", "suno_tag": "male vocal, raspy rock, powerful"},
+        "male_deep": {"label": "남성 - 깊은 저음 [Deep]", "suno_tag": "male vocal, deep baritone, resonant"},
+        "male_shaman": {"label": "남성 - 샤먼/주술 [Ritual]", "suno_tag": "male vocal, ritualistic, shamanic growl"},
+        "female_clear": {"label": "여성 - 청아한 [Soprano]", "suno_tag": "female vocal, clear soprano, ethereal"},
+        "female_soul": {"label": "여성 - 소울풀 [Deep]", "suno_tag": "female vocal, soulful, deep alto"},
+        "pansori": {"label": "판소리 창 [Traditional]", "suno_tag": "pansori vocal, traditional Korean singing, husky"},
+        "chant": {"label": "주문/챈트 [Ritual]", "suno_tag": "ritual chant, monotone, hypnotic drone"},
+        "experimental": {"label": "전위 발성 [Avant-Garde]", "suno_tag": "avant-garde vocalizations, abstract voices, deconstructed vocals"},
+        "spoken": {"label": "나레이터 [Poetry]", "suno_tag": "spoken word, poetic narration, mystical"},
+        "choir": {"label": "대규모 합창 [Choir]", "suno_tag": "grand epic choir, cinematic"}
     },
 }
 
 def clean_t(txt): return re.sub(r'[\u4e00-\u9fff\(\)]+', '', txt).strip() if txt else ""
 
-def generate_grand_lyrics(title):
+def generate_avant_lyrics(title):
     core = clean_t(title) or "진리"
-    ritual = f"[INTRO]\n[Professional Instrumental Session - Shamanic Fusion Ritual]\n[Pure expertise, high-quality, NO VOCALS]\n\n"
+    ritual = f"[INTRO]\n[Professional Instrumental Session - Shamanic Fusion Ritual]\n[Pure expertise, high-quality, AVANT-GARDE DECONSTRUCTION, NO VOCALS]\n\n"
     ritual += f"[VERSE 1 - THE AWAKENING]\n태초의 정적이 터져 나오던 그 날\n{core} 하늘에 가득했네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
     ritual += f"[VERSE 2 - THE DECONSTRUCTION]\n낡은 시스템이 붕괴하는 소리\n거대한 물결이 몰려온다\n{core} 우리의 심장을 두드린다\n\n"
     ritual += f"[VERSE 3 - THE SINGULARITY]\n디지털과 영성의 경계에 서서\n우리는 무엇을 보는가\n{core} 울려 퍼지는 이 전위적 공간\n\n"
@@ -88,32 +103,35 @@ def inject_style():
 def main():
     inject_style()
     st.markdown('<h1 class="app-title">PROJECT JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v6.9 - FLUXUS RITUAL ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ AVANT-GARDE SINGULARITY v7.0 ]</div>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["⚡ SETUP", "🎵 STUDIO", "📖 OUTPUT"])
 
     with t1:
         title = st.text_input("SONG TITLE", "개벽의 소리")
-        context = st.text_area("PHILOSOPHY SEED", "사상을 입력하세요...", height=150)
+        context = st.text_area("PHILOSOPHY SEED", "디지털 천지공사의 철학을 입력하세요...", height=150)
         b_min = st.number_input("BPM Min", 40, 240, 100)
         b_max = st.number_input("BPM Max", 40, 240, 140)
 
     with t2:
         st.markdown("### SOUND DESIGN")
-        k_sel = st.multiselect("KOREAN INSTRUMENTS", list(STYLE_DB["korean_instruments"].keys()), ["Janggu", "Gayageum", "Taepyeongso"])
-        w_sel = st.multiselect("WESTERN INSTRUMENTS", list(STYLE_DB["western_instruments"].keys()), ["Elec_Guitar_Dist", "Double_Bass", "Synth_Lead"])
+        k_sel = st.multiselect("KOREAN INSTRUMENTS", list(STYLE_DB["korean_instruments"].keys()), ["Janggu", "Gayageum", "Taepyeongso", "Beomjong"])
+        w_sel = st.multiselect("WESTERN INSTRUMENTS", list(STYLE_DB["western_instruments"].keys()), ["Elec_Guitar_Dist", "Double_Bass", "Synth_Lead", "Strings"])
         r_key = st.selectbox("BASE GENRE", list(STYLE_DB["western_rhythms"].keys()))
-        v_key = st.selectbox("VOCAL", ["male powerful", "male deep", "female clear soprano", "pansori", "ritual chant"])
+        v_key = st.selectbox("VOCAL", list(STYLE_DB["vocal_types"].keys()))
 
     with t3:
         if st.button("🔥 GENERATE MASTER RITUAL"):
             ki_t = [STYLE_DB["korean_instruments"][k]["suno_tag"] for k in k_sel]
             wi_t = [STYLE_DB["western_instruments"][k]["suno_tag"] for k in w_sel]
-            # THE CORE FLUXUS PROMPT LOGIC
-            base = "fluxus ritual, avant-garde music, shamanic spirit, experimental deconstruction, "
+            v_t = STYLE_DB["vocal_types"][v_key]["suno_tag"]
+            
+            # THE TRUE AVANT-GARDE + FLUXUS MANDATE
+            base = "fluxus ritual, avant-garde music experiment, shamanic soul, deconstructed, original artistic vision, "
             genre_p = STYLE_DB["western_rhythms"][r_key]["suno_prompt"]
-            st.session_state["p_box"] = f"{base}{genre_p}, {', '.join(ki_t + wi_t)}, {v_key}, {b_min}-{b_max} BPM, Korean lyrics, no auto-tune"
-            st.session_state["lyrics"] = generate_grand_lyrics(title)
+            
+            st.session_state["p_box"] = f"{base}{genre_p}, {', '.join(ki_t + wi_t)}, {v_t}, {b_min}-{b_max} BPM, Korean lyrics, no auto-tune"
+            st.session_state["lyrics"] = generate_avant_lyrics(title)
 
         if "p_box" in st.session_state:
             st.markdown("### 1. SUNO STYLE BOX")
