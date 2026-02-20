@@ -1,10 +1,10 @@
 import streamlit as st
 
 # [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v8.6", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v8.7", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v8.6 [BPM RESTORATION]
+#  PROJECT JSON RITUAL v8.7 [AI VOICE RESTORATION]
 # ==========================================================
 
 STYLE_DB = {
@@ -63,6 +63,7 @@ STYLE_DB = {
         "Mystery_Whispers": {"label": "몽환적인 속삭임", "tag": "hypnotic whispers, breathing"},
         "Narration": {"label": "대서사 낭독", "tag": "grand spoken word narrative"},
         "Industrial_Vox": {"label": "인더스트리얼 변조", "tag": "distorted industrial vocals"},
+        "AI_Cyber_Voice": {"label": "사이버네틱 AI 목소리", "tag": "cybernetic artificial voice, synthesized monotone"},
         "Buddhist_Chant": {"label": "전통 범패/염불", "tag": "traditional Buddhist chant"}
     }
 }
@@ -105,7 +106,7 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.6 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.7 ]</div>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["🚀 SETUP", "🎨 STUDIO", "🔮 OUTPUT"])
 
