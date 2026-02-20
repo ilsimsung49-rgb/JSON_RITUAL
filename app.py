@@ -3,10 +3,10 @@ import random
 import re
 
 # [CRITICAL] PAGE CONFIG MUST BE FIRST
-st.set_page_config(page_title="JSON RITUAL v7.6", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v7.7", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v7.6 [THE INFINITE VOICES]
+#  PROJECT JSON RITUAL v7.7 [FINAL BRIGHTNESS FIX]
 # ==========================================================
 
 STYLE_DB = {
@@ -24,8 +24,6 @@ STYLE_DB = {
         "Death_Black_Metal": "death metal, black metal, blast beats, extreme vocals",
         "Blues_Soul": "soulful blues, electric blues shuffle, expressive guitar",
         "Jazz_Abstract": "abstract jazz, free jazz, improvisational, complex harmony",
-        "Funk_Groove": "funk, slap bass, groovy rhythm",
-        "Psychedelic_Rock": "psychedelic rock, trippy effects, 60s atmosphere",
         "EDM_Mainstage": "EDM, dance music, big room house, synthesizer drop",
         "Psy_Trance": "psychedelic trance, hypnotic fast pulse, acid synth",
         "Techno_Glitch": "techno, glitchy electronics, industrial beat",
@@ -42,17 +40,14 @@ STYLE_DB = {
     "korean_instruments": {
         "Gayageum": "gayageum", "Geomungo": "geomungo", "Haegeum": "haegeum", "Daegeum": "daegeum",
         "Piri": "piri", "Taepyeongso": "taepyeongso", "Beomjong": "temple bell", "Daebuk": "taiko drum",
-        "Janggu": "janggu drum", "Kkwaenggwari": "kkwaenggwari gong", "Jing": "jing large gong", "Buk": "buk barrel drum",
-        "Sogo": "sogo small drum", "Ajaeng": "ajaeng bowed zither"
+        "Janggu": "janggu drum", "Kkwaenggwari": "kkwaenggwari gong", "Jing": "jing large gong", "Buk": "buk barrel drum"
     },
     "western_instruments": {
         "Elec_Dist": "electric guitar distortion", "Elec_Lead": "lead guitar solo", 
         "Elec_Rhythm": "rhythm guitar crunch", "Acous_Guitar": "acoustic guitar",
         "Bass": "heavy bass guitar", "Double_Bass": "double bass drum, blast beat",
-        "Rock_Drums": "rock drums", "Percussion": "extensive world percussion",
-        "Synth_Chaos": "modular synthesizer noise", "808_Sub": "808 sub bass",
-        "Piano": "grand piano", "Rhodes": "Rhodes electric piano", "Organ": "hammond organ",
-        "Violin": "solo violin", "Cello": "deep cello solo", "Orchestral_Strings": "orchestral strings",
+        "Rock_Drums": "rock drums", "Synth_Chaos": "modular synthesizer noise", "808_Sub": "808 sub bass",
+        "Piano": "grand piano", "Violin": "solo violin", "Orchestral_Strings": "orchestral strings",
         "Epic_Choir": "epic cinematic choir", "Brass_Section": "powerful brass section",
         "Harmonica": "harmonica", "Pipe_Organ": "pipe organ",
         "Drum_Machine": "TR-808 drum machine", "Sequencer": "analog sequencer",
@@ -61,19 +56,16 @@ STYLE_DB = {
     "vocal_rituals": {
         "Avant_Screams": {"label": "전위적 괴성 [Experimental Screams]", "tag": "avant-garde screams, abstract vocalizations, shouting, dissonant voices"},
         "Shaman_Deep_Growl": {"label": "샤먼/주술 낮고 거친목소리", "tag": "male shamanic growl, ritualistic deep chanting, primal"},
-        "Pansori_Husky": {"label": "허스키한 판소리 도성", "tag": "pansori vocal, traditional Korean singing, husky, powerful vibration"},
+        "Pansori_Husky": {"label": "허스키한 판소리 도성", "tag": "pansori vocal, traditional Korean singing, husky"},
         "Clear_Ethereal_Soprano": {"label": "청아한 소프라노 [Ethereal]", "tag": "clear ethereal soprano, heavenly female voice, operatic"},
-        "Pure_Children_Choir": {"label": "청아한 소년/소녀 합창", "tag": "pure children choir, ethereal boys choir, innocent"},
         "Husky_Rock_Vocal": {"label": "거친 허스키 록 보컬", "tag": "raspy husky male rock vocal, powerful, gritty"},
         "Deep_Baritone_Void": {"label": "낮고 깊은 바리톤 [Void]", "tag": "exceptionally deep male baritone, resonant, mystical"},
-        "Monastic_Drone_Chant": {"label": "단조로운 주문 [Monastic]", "tag": "monotone ritual chant, hypnotic drone, temple atmosphere"},
-        "Soulful_Deep_Alto": {"label": "소울풀한 깊은 여성보컬", "tag": "soulful deep alto female vocal, expressive, earthy"},
-        "Hypnotic_Whispers": {"label": "몽환적인 속삭임 [Whispers]", "tag": "hypnotic whispers, mysterious breathing sound, ASMR texture"},
-        "Spoken_Epic_Narration": {"label": "나레이션/대서사 낭독", "tag": "grand spoken word narrative, mystical dry narration, poetic"},
-        "Industrial_Glitch_Vox": {"label": "인더스트리얼 변조 보컬", "tag": "distorted industrial vocals, mechanical, glitchy robotic voices"},
-        "Grand_Epic_Choir": {"label": "웅장한 대규모 합창", "tag": "grand epic cinematic choir, powerful harmony"},
-        "Cybernetic_AI_Voice": {"label": "사이버네틱 AI 목소리", "tag": "cybernetic artificial voice, synthesized monotone"},
-        "Traditional_Buddhist_Chant": {"label": "전통 범패/염불", "tag": "traditional Buddhist chant, Beompae ritual singing"}
+        "Monastic_Chant": {"label": "단조로운 주문 [Monastic]", "tag": "monotone ritual chant, hypnotic drone"},
+        "Soulful_Deep_Alto": {"label": "소울풀한 깊은 여성보컬", "tag": "soulful deep alto female vocal, expressive"},
+        "Hypnotic_Whispers": {"label": "몽환적인 속삭임 [Whispers]", "tag": "hypnotic whispers, mysterious breathing sound"},
+        "Spoken_Epic_Narration": {"label": "나레이션/대서사 낭독", "tag": "grand spoken word narrative, mystical dry narration"},
+        "Industrial_Glitch_Vox": {"label": "인더스트리얼 변조 보컬", "tag": "distorted industrial vocals, mechanical, glitchy"},
+        "Grand_Epic_Choir": {"label": "웅장한 대규모 합창", "tag": "grand epic cinematic choir, powerful harmony"}
     },
 }
 
@@ -85,7 +77,18 @@ def inject_grand_style():
     .stApp { background-color: #000; color: #fff !important; font-family: 'Outfit', 'Noto Sans KR', sans-serif; }
     p, span, div, li, label, .stMarkdown { color: #FFFFFF !important; }
     h1, h2, h3 { color: #FFFFFF !important; }
-    .stCode { background-color: #111 !important; color: #FFE800 !important; border: 1px solid #444 !important; }
+    
+    /* RESULT BOX VISIBILITY FIX - CRITICAL */
+    .stCode, code, pre { 
+        background-color: #080808 !important; 
+        color: #FFE800 !important; 
+        border: 2px solid #333 !important; 
+        font-size: 1.25rem !important;
+        font-weight: 500 !important;
+        padding: 20px !important;
+        border-radius: 10px !important;
+    }
+    .stCode * { color: #FFE800 !important; } /* Force all sub-elements inherited color */
 
     .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 15px; margin-top: 30px; text-shadow: 0 0 30px rgba(255, 232, 0, 0.5); }
     .app-subtitle { color: #FFE800; text-align: center; letter-spacing: 8px; opacity: 0.8; margin-bottom: 40px; }
@@ -95,7 +98,7 @@ def inject_grand_style():
     
     .panel-header { font-family: 'Bebas Neue'; color: #FFE800; font-size: 2rem; border-bottom: 2px solid #FFE800; padding-bottom: 5px; margin: 30px 0 15px 0; }
     
-    /* INPUT & DROPDOWN VISIBILITY FIX */
+    /* INPUT & DROPDOWN */
     .stTextInput input, .stTextArea textarea, .stNumberInput input {
         background-color: #1A1A1A !important; color: #FFFFFF !important; border: 1px solid #FFE800 !important;
     }
@@ -150,10 +153,10 @@ def main():
         st.markdown('<div class="panel-header">SOUND ARCHITECTURE</div>', unsafe_allow_html=True)
         k_sel = st.multiselect("국악기 (KOREAN)", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Taepyeongso", "Daebuk", "Gayageum"], key="k_inst")
         w_sel = st.multiselect("서양악기 (WESTERN)", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Double_Bass", "Synth_Chaos", "Epic_Choir"], key="w_inst")
-        v_key = st.selectbox("보컬 리추얼 (VOCAL TYPES)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"], key="vocal")
+        v_key = st.selectbox("보컬 리추얼 (VOCAL)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"], key="vocal")
 
     with t3:
-        if st.button("🔥 INVOKE THE INFINITE VOICES"):
+        if st.button("🔥 INVOKE THE CORE RITUAL"):
             m_t = STYLE_DB["avant_genres"][m_style]["tags"]
             s_t = STYLE_DB["sub_styles"][s_style]
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
@@ -164,9 +167,10 @@ def main():
             st.session_state["s"] = generate_cheonji_narrative(title)
 
         if "p" in st.session_state:
-            st.markdown('<div class="panel-header">1. MASTER STYLE PROMPT</div>', unsafe_allow_html=True)
+            st.markdown('<div class="panel-header">1. MASTER STYLE PROMPT (사운드 프롬프트)</div>', unsafe_allow_html=True)
             st.code(st.session_state["p"], language="text")
-            st.markdown('<div class="panel-header">2. MASTER RITUAL LYRICS</div>', unsafe_allow_html=True)
+            
+            st.markdown('<div class="panel-header">2. MASTER RITUAL LYRICS (대서사시 가사)</div>', unsafe_allow_html=True)
             st.code(st.session_state["s"], language="text")
 
 if __name__ == "__main__":
