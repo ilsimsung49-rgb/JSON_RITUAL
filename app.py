@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import google.generativeai as genai
 
-st.set_page_config(page_title="JSON RITUAL v10.4", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v11.0", page_icon="👹", layout="wide")
 
 STYLE_DB = {
     "avant_genres": {
@@ -201,7 +201,7 @@ def generate_lyrics_fallback(k):
 def main():
     inject_styles()
     st.markdown('<h1 style="font-family:Bebas Neue; font-size:4.5rem; color:#FFE800; text-align:center; letter-spacing:12px;">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ FINAL MASTER v10.4 ]</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ GEMINI AI LYRICS — v11.0 ]</p>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["🚀 SETUP", "🎵 STUDIO", "🔮 OUTPUT"])
 
