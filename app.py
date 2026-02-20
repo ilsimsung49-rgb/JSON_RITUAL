@@ -72,15 +72,23 @@ def inject_styles():
     """, unsafe_allow_html=True)
 
 def show_box(text, box_id):
-    """Render text in a box with INLINE styles + JS copy button."""
+    """Render text in a box with INLINE styles + execCommand copy button (iframe-safe)."""
     safe = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    # Use a hidden textarea for reliable clipboard copy
-    js_text = text.replace("`", "\\`").replace("\\", "\\\\").replace("$", "\\$")
+    js_text = text.replace("\\", "\\\\").replace("`", "\\`").replace("$", "\\$")
     html_lines = "<br>".join(safe.split("\n"))
     st.markdown(
         f'<div style="background-color:#000000; border:3px solid #FFE800; '
         f'border-radius:12px; padding:30px 35px; margin-bottom:25px; position:relative;">'
-        f'<button onclick="navigator.clipboard.writeText(`{js_text}`).then(()=>{{this.innerText=\'✅\';setTimeout(()=>{{this.innerText=\'📋\'}},1500)}})" '
+        f'<button id="btn_{box_id}" onclick="'
+        f'var ta=document.createElement(\'textarea\');'
+        f'ta.value=`{js_text}`;'
+        f'ta.style.position=\'fixed\';ta.style.opacity=\'0\';'
+        f'document.body.appendChild(ta);'
+        f'ta.focus();ta.select();'
+        f'document.execCommand(\'copy\');'
+        f'document.body.removeChild(ta);'
+        f'this.innerText=\'✅\';'
+        f'setTimeout(()=>{{this.innerText=\'📋\'}},1500);" '
         f'style="position:absolute; top:12px; right:12px; background:#FFE800; color:#000; '
         f'border:none; border-radius:6px; padding:6px 14px; font-size:1.1rem; cursor:pointer; font-weight:bold;">📋</button>'
         f'<div style="color:#FFE800; font-family:Noto Sans KR, sans-serif; font-size:1.3rem; '
