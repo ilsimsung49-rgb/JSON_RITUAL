@@ -1,10 +1,10 @@
 import streamlit as st
 
-# [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v9.1", page_icon="👹", layout="wide")
+# [CRITICAL] PAGE CONFIG MUST BE FIRST
+st.set_page_config(page_title="JSON RITUAL v9.2", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v9.1 [FIXED VISIBILITY & CONTENT]
+#  PROJECT JSON RITUAL v9.2 [FINAL STABLE SINGULARITY]
 # ==========================================================
 
 STYLE_DB = {
@@ -16,12 +16,12 @@ STYLE_DB = {
         "Experimental_Void": {"label": "전위적 허공 [VOID]", "tags": "space drone, ambient, transcendent, experimental atmosphere, minimalistic"}
     },
     "sub_styles": {
-        "Rock": "classic rock, 70s rock, power chords",
+        "Rock": "classic rock, 70s rock",
         "Hard_Rock": "hard rock, aggressive riffs",
-        "Heavy_Metal": "heavy metal, distorted guitar, double bass drum",
+        "Heavy_Metal": "heavy metal, distorted guitar",
         "Death_Metal": "death metal, blast beats, extreme vocals",
         "Blues_Soul": "soulful blues, electric shuffle",
-        "Jazz_Abstract": "abstract jazz, free jazz, complex harmony",
+        "Jazz_Abstract": "abstract jazz, free jazz",
         "Funk_Groove": "funk, slap bass, groovy",
         "Psychedelic": "psychedelic rock, trippy effects",
         "EDM_Chaos": "EDM, heavy electronic, synthesizer chaos",
@@ -37,7 +37,7 @@ STYLE_DB = {
         "Gayageum": "gayageum", "Geomungo": "geomungo", "Haegeum": "haegeum", "Daegeum": "daegeum",
         "Piri": "piri", "Taepyeongso": "taepyeongso", "Beomjong": "temple bell", "Daebuk": "taiko drum",
         "Janggu": "janggu drum", "Kkwaenggwari": "kkwaenggwari gong", "Jing": "jing gong", "Buk": "buk drum",
-        "Sogo": "sogo", "Ajaeng": "ajaeng"
+        "Sogo": "sogo", "Ajaeng": "ajaeng bowed zither"
     },
     "western_instruments": {
         "Elec_Dist": "electric guitar distortion", "Elec_Lead": "lead guitar solo", 
@@ -75,24 +75,25 @@ def inject_styles():
     
     .stApp { background-color: #000; color: #fff !important; font-family: 'Outfit', 'Noto Sans KR', sans-serif; }
     p, span, div, li, label, .stMarkdown { color: #FFFFFF !important; }
-    .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 15px; margin-top: 30px; }
+    .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 12px; margin-top: 20px; }
     
     .stTextInput input, .stTextArea textarea, .stNumberInput input, div[data-baseweb="select"] > div { 
         background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; 
     }
     
-    /* Code block styling - High visibility */
+    /* Code block styling - FIXED OVERLAP & COPY SYMBOL */
     div[data-testid="stCodeBlock"] pre {
         background-color: #080808 !important;
         border: 2px solid #555 !important;
-        padding: 25px !important;
+        padding: 30px !important;
         line-height: 2.2 !important;
         border-radius: 12px;
+        margin-bottom: 25px !important;
     }
     div[data-testid="stCodeBlock"] code {
         color: #FFE800 !important;
         font-family: 'Noto Sans KR', sans-serif !important;
-        font-size: 1.25rem !important;
+        font-size: 1.3rem !important;
         white-space: pre-wrap !important;
     }
     div[data-testid="stCodeBlock"] button {
@@ -102,7 +103,7 @@ def inject_styles():
     }
 
     .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; margin: 20px 0; }
-    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; }
+    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; box-shadow: 0 0 20px #FFE800; }
     
     div[data-baseweb="popover"] * { background-color: #111 !important; color: #FFF !important; }
     li[role="option"]:hover { background-color: #FFE800 !important; color: #000 !important; }
@@ -111,7 +112,7 @@ def inject_styles():
 
 def generate_full_ritual(title):
     core = title or "개벽"
-    lyrics = f"[INTRO]\n[Professional Instrumental Session - DECONSTRUCTED AVANT-GARDE]\n\n"
+    lyrics = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n[Instruments: Static, Noise, Deep Resonance, NO VOCALS]\n\n"
     lyrics += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
     lyrics += f"[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
     lyrics += f"[CHORUS - THE DIGITAL CHONJI-GONGSA]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
@@ -127,7 +128,7 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v9.1 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v9.2 ]</div>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["🚀 SETUP", "🎵 STUDIO", "📖 OUTPUT"])
 
@@ -148,19 +149,22 @@ def main():
         v_key = st.selectbox("보컬 유형", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"])
 
     with t3:
-        if st.button("🔥 INVOKE THE MASTER RITUAL"):
+        # ENSURE GENERATION WORKS BY USING A FORM OR DIRECT BUTTON HANDLING
+        if st.button("🔥 INVOKE THE FINAL RITUAL"):
             m_t = STYLE_DB["avant_genres"][m_k]["tags"]
             s_t = STYLE_DB["sub_styles"][s_k]
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
             w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
             v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
-            st.session_state["p_final"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
-            st.session_state["s_final"] = generate_full_ritual(title)
+            
+            # SET STATE IMMEDIATELY
+            st.session_state["p_v92"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
+            st.session_state["s_v92"] = generate_full_ritual(title)
 
-        if "p_final" in st.session_state:
-            # ONLY TWO BOXES: PROMPT and LYRICS
-            st.code(st.session_state["p_final"], language="text")
-            st.code(st.session_state["s_final"], language="text")
+        if "p_v92" in st.session_state:
+            # ONLY SHOW THE TWO CONTENT BLOCKS WITHOUT LABELS
+            st.code(st.session_state["p_v92"], language="text")
+            st.code(st.session_state["s_v92"], language="text")
 
 if __name__ == "__main__":
     main()
