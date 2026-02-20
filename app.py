@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="JSON RITUAL v10.4", page_icon="👹", layout="wide")
 
@@ -72,29 +73,33 @@ def inject_styles():
     """, unsafe_allow_html=True)
 
 def show_box(text, box_id):
-    """Render text in a box with INLINE styles + execCommand copy button (iframe-safe)."""
+    """Render using components.html so JS onclick actually executes."""
     safe = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    js_text = text.replace("\\", "\\\\").replace("`", "\\`").replace("$", "\\$")
     html_lines = "<br>".join(safe.split("\n"))
-    st.markdown(
-        f'<div style="background-color:#000000; border:3px solid #FFE800; '
-        f'border-radius:12px; padding:30px 35px; margin-bottom:25px; position:relative;">'
-        f'<button id="btn_{box_id}" onclick="'
-        f'var ta=document.createElement(\'textarea\');'
-        f'ta.value=`{js_text}`;'
-        f'ta.style.position=\'fixed\';ta.style.opacity=\'0\';'
-        f'document.body.appendChild(ta);'
-        f'ta.focus();ta.select();'
-        f'document.execCommand(\'copy\');'
-        f'document.body.removeChild(ta);'
-        f'this.innerText=\'✅\';'
-        f'setTimeout(()=>{{this.innerText=\'📋\'}},1500);" '
-        f'style="position:absolute; top:12px; right:12px; background:#FFE800; color:#000; '
-        f'border:none; border-radius:6px; padding:6px 14px; font-size:1.1rem; cursor:pointer; font-weight:bold;">📋</button>'
-        f'<div style="color:#FFE800; font-family:Noto Sans KR, sans-serif; font-size:1.3rem; '
-        f'line-height:2.3; white-space:pre-wrap; word-break:break-word;">'
-        f'{html_lines}</div></div>',
-        unsafe_allow_html=True
+    height = min(800, max(180, text.count("\n") * 42 + 120))
+    components.html(
+        f'''<div style="background-color:#000000; border:3px solid #FFE800;
+            border-radius:12px; padding:30px 35px; position:relative;
+            font-family:sans-serif;">
+          <pre id="raw_{box_id}" style="display:none;">{safe}</pre>
+          <button onclick="
+            var ta=document.createElement('textarea');
+            ta.value=document.getElementById('raw_{box_id}').innerText;
+            ta.style.position='fixed';ta.style.top='0';ta.style.opacity='0.01';
+            document.body.appendChild(ta);ta.focus();ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            this.innerText='✅';setTimeout(()=>{{this.innerText='📋'}},1500);"
+            style="position:absolute;top:12px;right:12px;background:#FFE800;color:#000;
+                   border:none;border-radius:6px;padding:6px 14px;font-size:1.1rem;
+                   cursor:pointer;font-weight:bold;">📋</button>
+          <div style="color:#FFE800;font-size:1.2rem;line-height:2.2;
+                      white-space:pre-wrap;word-break:break-word;margin-top:10px;">
+            {html_lines}
+          </div>
+        </div>''',
+        height=height,
+        scrolling=True
     )
 
 def generate_lyrics(title):
@@ -144,7 +149,6 @@ def main():
             st.session_state["s"] = generate_lyrics(title)
 
         if "p" in st.session_state:
-            # INLINE HTML - BROWSER CANNOT OVERRIDE THIS
             show_box(st.session_state["p"], "prompt")
             show_box(st.session_state["s"], "lyrics")
 
