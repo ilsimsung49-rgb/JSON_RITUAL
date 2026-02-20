@@ -102,20 +102,98 @@ def show_box(text, box_id):
         scrolling=True
     )
 
-def generate_lyrics(title):
-    core = title or "개벽"
-    l  = "[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n\n"
-    l += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
-    l += "[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
-    l += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
-    l += f"[VERSE 2 - DECONSTRUCTION]\n낡은 체제의 질서가 붕괴하는 소리\n거대한 변화의 물결이 몰려온다\n{core} 우리의 심장을 뜨겁게 두드린다\n\n"
-    l += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
-    l += f"[VERSE 3 - SINGULARITY]\n디지털과 영성의 경계가 사라진 찰나\n우리는 무엇을 마주하게 되는가\n{core} 울려 퍼지는 이 전위적인 공간\n\n"
-    l += "[BRIDGE]\n터져 나오는 영혼의 외침\n해체하라, 파괴하라, 그리고 다시 세우라\n시원의 에너지가 쿤달리니처럼 솟구친다\n\n"
-    l += f"[VERSE 4 - NEW GENESIS]\n이제 하나로 연결되는 영원의 시간\n우주의 마지막 코드이자 첫 소절\n{core} 영원토록 울려 퍼지리라\n\n"
-    l += f"[CHORUS]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
-    l += "[OUTRO]\n시원의 빛으로 돌아가는 길\n이것은 노래가 아니요, 우주의 맥박이다\n[FADE OUT]\n"
+# 받침 여부로 조사 자동 선택
+def has_batchim(w):
+    c = w[-1] if w else ''
+    return '가' <= c <= '힣' and (ord(c) - 0xAC00) % 28 != 0
+
+def p_i(w):   return w + ("이" if has_batchim(w) else "가")
+def p_eun(w): return w + ("은" if has_batchim(w) else "는")
+
+# 핵심어 검증: 공백/구두점/용언 어미가 있으면 False
+BAD_ENDINGS = ["이란","뭘까","인가","일까","냐","야","지","니","나","까","어","아","어요","아요","하자","하라","하다"]
+
+def validate_keyword(k):
+    k = k.strip()
+    if not k:
+        return False, "⚠️ 가사 핵심어를 입력해주세요."
+    if ' ' in k:
+        return False, f"⚠️ 핵심어에 띄어쓰기가 있습니다. 단어 하나만 입력하세요.\n예: '사랑이란 뭘까' → '사랑'"
+    if any(k.endswith(e) for e in BAD_ENDINGS):
+        return False, f"⚠️ '{k}'는 문장/용언 형태입니다. 명사만 입력하세요.\n예: '사랑이란' → '사랑',  '개벽이란' → '개벽'"
+    if len(k) > 8:
+        return False, f"⚠️ 핵심어가 너무 깁니다. 명사 하나만 입력하세요. (현재 {len(k)}자)"
+    return True, ""
+
+def generate_lyrics(k):
+    l  = "[INTRO]\n[Pure Instrumental — 범종 타격, 전자 노이즈, 전통 타악 — 침묵에서 폭발로]\n\n"
+
+    l += f"[VERSE 1 - 잠에서 깨어남]\n"
+    l += f"너는 지금 어디서 왔는가\n"
+    l += f"태어나기 전 네 얼굴을 기억하는가\n"
+    l += f"{k}의 씨앗은 이미 네 안에 심겨 있었다\n"
+    l += f"수백 겁의 윤회 끝에 오늘 이 순간\n"
+    l += f"마침내 눈을 뜰 시간이 왔다\n\n"
+
+    l += "[PRE-CHORUS]\n"
+    l += "인내천 — 사람이 곧 하늘이다\n"
+    l += "네 심장 속에서 우주가 뛰고 있다\n\n"
+
+    l += f"[CHORUS — 개벽의 선언]\n"
+    l += f"깨어나라 깨어나라 {k}의 이름으로\n"
+    l += f"낡은 세계의 껍데기를 벗어던져라\n"
+    l += f"하늘이 열리고 땅이 새로 나는 이 순간\n"
+    l += f"너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
+
+    l += f"[VERSE 2 - 해체와 파괴]\n"
+    l += f"두려움이 너를 가두어 온 감옥을 보라\n"
+    l += f"욕망과 분노와 무지의 철창을\n"
+    l += f"{p_i(k)} 그 모든 사슬을 불태운다\n"
+    l += f"부수어라 — 부수어야 새것이 선다\n"
+    l += f"동학의 함성이 다시 이 땅을 울린다\n\n"
+
+    l += f"[CHORUS — 개벽의 선언]\n"
+    l += f"깨어나라 깨어나라 {k}의 이름으로\n"
+    l += f"낡은 세계의 껍데기를 벗어던져라\n"
+    l += f"하늘이 열리고 땅이 새로 나는 이 순간\n"
+    l += f"너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
+
+    l += f"[VERSE 3 - 특이점 / 공(空)의 각성]\n"
+    l += f"디지털과 신성이 하나로 합쳐지는 찰나\n"
+    l += f"AI는 묻는다 — 의식이란 무엇인가\n"
+    l += f"공(空)이란 아무것도 없음이 아니라\n"
+    l += f"모든 것이 동시에 존재하는 충만함이다\n"
+    l += f"{p_eun(k)} 이미 그 답 안에 있다\n\n"
+
+    l += "[BRIDGE — 절규와 선언]\n"
+    l += "나는 누구인가!\n"
+    l += "하늘 아래 홀로 서서 외친다\n"
+    l += "나는 우주의 자식이요\n"
+    l += "빛으로 빚어진 존재이다\n"
+    l += "더 이상 잠들지 않으리\n"
+    l += "더 이상 두렵지 않으리\n\n"
+
+    l += f"[VERSE 4 - 새 하늘 새 땅 / 후천개벽]\n"
+    l += f"선천의 상극 시대는 끝났다\n"
+    l += f"이제 후천의 상생 시대가 열린다\n"
+    l += f"삼신의 빛이 온 누리에 내려오고\n"
+    l += f"{p_eun(k)} 인류의 심장 속에 영원히 산다\n"
+    l += f"이것이 진정한 개벽이요\n"
+    l += f"이것이 우리가 기다려 온 그 날이다\n\n"
+
+    l += f"[CHORUS — 개벽의 선언]\n"
+    l += f"깨어나라 깨어나라 {k}의 이름으로\n"
+    l += f"낡은 세계의 껍데기를 벗어던져라\n"
+    l += f"하늘이 열리고 땅이 새로 나는 이 순간\n"
+    l += f"너는 다시 태어난다 — 영원한 {k}(으)로\n\n"
+
+    l += "[OUTRO — 침묵과 빛]\n"
+    l += "이제 말이 필요 없다\n"
+    l += "그저 존재하라\n"
+    l += "너는 이미 완전하다\n"
+    l += "[FADE INTO SILENCE]\n"
     return l
+
 
 def main():
     inject_styles()
@@ -127,7 +205,9 @@ def main():
     with t1:
         m_k = st.selectbox("전위 예술 기법", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"])
         s_k = st.selectbox("음악 스타일", list(STYLE_DB["sub_styles"].keys()))
-        title = st.text_input("제목 (TITLE)", "개벽의 소리")
+        title = st.text_input("제목 (TITLE) — 자유롭게", "개벽의 소리")
+        keyword = st.text_input("✏️ 가사 핵심어 (명사 하나만 — 예: 사랑, 개벽, 우주)", "개벽")
+        st.caption("💡 제목이 '사랑이란 뭘까'라면 핵심어는 '사랑'")
         st.text_area("SEED", "사상을 입력하세요...", height=100)
         col1, col2 = st.columns(2)
         b_min = col1.number_input("BPM Min", 40, 240, 100)
@@ -140,13 +220,17 @@ def main():
 
     with t3:
         if st.button("🔥 INVOKE THE FINAL RITUAL"):
-            m_t = STYLE_DB["avant_genres"][m_k]["tags"]
-            s_t = STYLE_DB["sub_styles"][s_k]
-            k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
-            w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
-            v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
-            st.session_state["p"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
-            st.session_state["s"] = generate_lyrics(title)
+            ok, err = validate_keyword(keyword)
+            if not ok:
+                st.error(err)
+            else:
+                m_t = STYLE_DB["avant_genres"][m_k]["tags"]
+                s_t = STYLE_DB["sub_styles"][s_k]
+                k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
+                w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
+                v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
+                st.session_state["p"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
+                st.session_state["s"] = generate_lyrics(keyword.strip())
 
         if "p" in st.session_state:
             show_box(st.session_state["p"], "prompt")
