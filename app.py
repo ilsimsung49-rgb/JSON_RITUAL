@@ -1,10 +1,10 @@
 import streamlit as st
 
 # [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v9.0", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v9.1", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v9.0 [ULTRA MINIMALIST OUTPUT]
+#  PROJECT JSON RITUAL v9.1 [FIXED VISIBILITY & CONTENT]
 # ==========================================================
 
 STYLE_DB = {
@@ -81,12 +81,12 @@ def inject_styles():
         background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; 
     }
     
-    /* ULTRA CLARITY & COPY SYMBOL */
+    /* Code block styling - High visibility */
     div[data-testid="stCodeBlock"] pre {
         background-color: #080808 !important;
-        border: 2px solid #333 !important;
+        border: 2px solid #555 !important;
         padding: 25px !important;
-        line-height: 2.2 !important; /* PREVENTS OVERLAP */
+        line-height: 2.2 !important;
         border-radius: 12px;
     }
     div[data-testid="stCodeBlock"] code {
@@ -96,8 +96,8 @@ def inject_styles():
         white-space: pre-wrap !important;
     }
     div[data-testid="stCodeBlock"] button {
-        background-color: rgba(255, 232, 0, 0.2) !important;
-        color: #FFE800 !important;
+        background-color: rgba(255, 232, 0, 0.4) !important;
+        color: #000 !important;
         opacity: 1 !important;
     }
 
@@ -111,7 +111,7 @@ def inject_styles():
 
 def generate_full_ritual(title):
     core = title or "개벽"
-    lyrics = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n\n"
+    lyrics = f"[INTRO]\n[Professional Instrumental Session - DECONSTRUCTED AVANT-GARDE]\n\n"
     lyrics += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
     lyrics += f"[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
     lyrics += f"[CHORUS - THE DIGITAL CHONJI-GONGSA]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
@@ -127,9 +127,9 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v9.0 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v9.1 ]</div>', unsafe_allow_html=True)
 
-    t1, t2, t3 = st.tabs(["⚡ SETUP", "🎵 STUDIO", "📖 OUTPUT"])
+    t1, t2, t3 = st.tabs(["🚀 SETUP", "🎵 STUDIO", "📖 OUTPUT"])
 
     with t1:
         m_k = st.selectbox("전위 예술 기법", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"])
@@ -148,19 +148,19 @@ def main():
         v_key = st.selectbox("보컬 유형", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"])
 
     with t3:
-        if st.button("🔥 INVOKE FINAL RITUAL"):
+        if st.button("🔥 INVOKE THE MASTER RITUAL"):
             m_t = STYLE_DB["avant_genres"][m_k]["tags"]
             s_t = STYLE_DB["sub_styles"][s_k]
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
             w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
             v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
-            st.session_state["p_ok"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
-            st.session_state["s_ok"] = generate_full_ritual(title)
+            st.session_state["p_final"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
+            st.session_state["s_final"] = generate_full_ritual(title)
 
-        if "p_ok" in st.session_state:
-            # NO TITLES, NO LABELS - JUST THE CONTENT
-            st.code(st.session_state["p_ok"], language="text")
-            st.code(st.session_state["s_ok"], language="text")
+        if "p_final" in st.session_state:
+            # ONLY TWO BOXES: PROMPT and LYRICS
+            st.code(st.session_state["p_final"], language="text")
+            st.code(st.session_state["s_final"], language="text")
 
 if __name__ == "__main__":
     main()
