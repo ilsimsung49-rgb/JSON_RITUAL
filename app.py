@@ -1,10 +1,10 @@
 import streamlit as st
 
 # [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v8.5", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v8.6", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v8.5 [THE FINAL SINGULARITY]
+#  PROJECT JSON RITUAL v8.6 [BPM RESTORATION]
 # ==========================================================
 
 STYLE_DB = {
@@ -74,11 +74,10 @@ def inject_styles():
     .stApp { background-color: #000; color: #fff !important; font-family: 'Outfit', 'Noto Sans KR', sans-serif; }
     p, span, div, li, label, .stMarkdown { color: #FFFFFF !important; }
     .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 15px; margin-top: 30px; }
-    .stTextInput input, .stTextArea textarea, div[data-baseweb="select"] > div { background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; }
+    .stTextInput input, .stTextArea textarea, .stNumberInput input, div[data-baseweb="select"] > div { background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; }
     .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; margin: 20px 0; }
     .stButton > button:hover { background: #FFE800 !important; color: #000 !important; }
     
-    /* Result Box Clarity */
     .ritual-box { background-color: #080808 !important; border: 2px solid #FFE800 !important; padding: 40px !important; margin-bottom: 30px !important; border-radius: 12px; }
     .ritual-content { color: #FFE800 !important; font-family: 'Noto Sans KR', sans-serif !important; font-size: 1.4rem !important; line-height: 2.2 !important; white-space: pre-wrap !important; margin: 0 !important; }
     .ritual-label { font-family: 'Bebas Neue' !important; color: #FFFFFF !important; font-size: 1.8rem !important; letter-spacing: 5px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
@@ -106,15 +105,20 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.5 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.6 ]</div>', unsafe_allow_html=True)
 
-    t1, t2, t3 = st.tabs(["🚀 SETTINGS", "🎨 STUDIO", "🔮 OUTPUT"])
+    t1, t2, t3 = st.tabs(["🚀 SETUP", "🎨 STUDIO", "🔮 OUTPUT"])
 
     with t1:
         m_k = st.selectbox("전위 예술 기법", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"])
         s_k = st.selectbox("보조 장르 스타일", list(STYLE_DB["sub_styles"].keys()))
         title = st.text_input("제목 (TITLE)", "개벽의 소리")
         context = st.text_area("SEED", "사상을 입력하세요...", height=100)
+        
+        st.markdown('<div style="color:#FFE800; font-family:Bebas Neue; font-size:1.5rem; margin-top:20px;">BPM CONTROL</div>', unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        b_min = col1.number_input("BPM Min", 40, 240, 100)
+        b_max = col2.number_input("BPM Max", 40, 240, 140)
     
     with t2:
         k_sel = st.multiselect("국악기", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Daebuk", "Taepyeongso"])
@@ -128,12 +132,12 @@ def main():
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
             w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
             v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
-            st.session_state["p_ok"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, 120BPM, high fidelity"
+            st.session_state["p_ok"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM, high fidelity"
             st.session_state["s_ok"] = generate_full_ritual(title)
 
         if "p_ok" in st.session_state:
             st.markdown(f'<div class="ritual-box"><div class="ritual-label">1. STYLE PROMPT</div><p class="ritual-content">{st.session_state["p_ok"]}</p></div>', unsafe_allow_html=True)
-            st.markdown(f'<div class="ritual-box"><div class="ritual-label">2. MASTER LYRICS (FULL STRUCTURE)</div><p class="ritual-content">{st.session_state["s_ok"]}</p></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="ritual-box"><div class="ritual-label">2. MASTER LYRICS</div><p class="ritual-content">{st.session_state["s_ok"]}</p></div>', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
