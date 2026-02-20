@@ -3,10 +3,10 @@ import random
 import re
 
 # [CRITICAL] PAGE CONFIG MUST BE FIRST
-st.set_page_config(page_title="JSON RITUAL v7.3", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v7.4", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v7.3 [TRUE PHILOSOPHY]
+#  PROJECT JSON RITUAL v7.4 [ULTIMATE VISIBILITY FIX]
 # ==========================================================
 
 STYLE_DB = {
@@ -58,26 +58,81 @@ def inject_grand_style():
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@200;400;700&family=Noto+Sans+KR:wght@300;700&display=swap');
+    
+    /* Global Base */
     .stApp { background-color: #000; color: #fff !important; font-family: 'Outfit', 'Noto Sans KR', sans-serif; }
-    p, span, div, li, label { color: #E0E0E0 !important; }
+    p, span, div, li, label, .stMarkdown { color: #FFFFFF !important; }
     h1, h2, h3 { color: #FFFFFF !important; }
     .stCode { background-color: #111 !important; color: #FFE800 !important; border: 1px solid #444 !important; }
+
+    /* Title UI */
     .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 15px; margin-top: 30px; text-shadow: 0 0 30px rgba(255, 232, 0, 0.5); }
     .app-subtitle { color: #FFE800; text-align: center; letter-spacing: 8px; opacity: 0.8; margin-bottom: 40px; }
+    
+    /* Professional Button */
     .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; transition: 0.4s; }
     .stButton > button:hover { background: #FFE800 !important; color: #000 !important; box-shadow: 0 0 50px #FFE800; transform: scale(1.01); }
+    
+    /* Section Header */
     .panel-header { font-family: 'Bebas Neue'; color: #FFE800; font-size: 2rem; border-bottom: 2px solid #FFE800; padding-bottom: 5px; margin: 30px 0 15px 0; }
-    .stTextInput input, .stTextArea textarea, .stNumberInput input, .stSelectbox div, .stMultiSelect div {
+    
+    /* INPUT & DROPDOWN CRITICAL FIX */
+    /* 1. Base Input Fields */
+    .stTextInput input, .stTextArea textarea, .stNumberInput input {
         background-color: #1A1A1A !important; color: #FFFFFF !important; border: 1px solid #FFE800 !important;
     }
-    li[role="option"]:hover { background-color: #333333 !important; color: #FFE800 !important; }
-    span[data-baseweb="tag"] { background-color: #FFE800 !important; color: #000 !important; font-weight: bold; }
+
+    /* 2. Selectbox & Multiselect Base */
+    div[data-baseweb="select"] > div {
+        background-color: #1A1A1A !important; color: #FFFFFF !important; border: 1px solid #FFE800 !important;
+    }
+
+    /* 3. DROPDOWN MENU - CRITICAL VISIBILITY */
+    /* This targets the actual hovering popover menu */
+    div[data-baseweb="popover"] ul, 
+    div[data-baseweb="popover"] li, 
+    div[data-baseweb="menu"] div,
+    ul[role="listbox"] li {
+        background-color: #222222 !important; 
+        color: #FFFFFF !important;
+        font-size: 1.1rem !important;
+    }
+
+    /* 4. HOVER & FOCUS state in dropdown */
+    li[role="option"]:hover, 
+    div[data-baseweb="menu"] div:hover,
+    li[aria-selected="true"] {
+        background-color: #FFE800 !important;
+        color: #000000 !important;
+    }
+
+    /* 5. Multiselect Selected Tags */
+    span[data-baseweb="tag"] {
+        background-color: #FFE800 !important;
+        color: #000000 !important;
+        font-weight: bold;
+    }
+    
+    /* 6. Fix for white text on white bg issues in some browser themes */
+    div[data-testid="stSelectbox"] * {
+        color: #FFFFFF !important;
+    }
+    div[data-baseweb="popover"] * {
+        color: #FFFFFF !important;
+    }
+    li[role="option"]:hover * {
+        color: #000000 !important;
+    }
+
+    /* Tabs Styling */
+    .stTabs [data-baseweb="tab-list"] { background-color: transparent; }
+    .stTabs [data-baseweb="tab"] { color: #888 !important; }
+    .stTabs [aria-selected="true"] { color: #FFE800 !important; border-bottom-color: #FFE800 !important; }
     </style>
     """, unsafe_allow_html=True)
 
 def generate_cheonji_narrative(title):
     core = title or "개벽"
-    # INTERNAL CORE PHILOSOPHY: DIGITAL CHEONJI-GONGSA
     ritual = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n[Mode: DECONSTRUCTED AVANT-GARDE]\n[Instruments: Pure expertise, high-quality session, NO VOCALS]\n\n"
     ritual += f"[VERSE 1 - THE AWAKENING]\n태초의 정적이 터져 나오던 그 날\n{core} 하늘에 가득했네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
     ritual += f"[VERSE 2 - THE DECONSTRUCTION]\n낡은 시스템이 붕괴하는 소리\n거대한 물결이 몰려온다\n{core} 우리의 심장을 두드린다\n\n"
@@ -95,10 +150,10 @@ def main():
 
     with t1:
         st.markdown('<div class="panel-header">1. MASTER AVANT-GARDE STYLE</div>', unsafe_allow_html=True)
-        m_style = st.selectbox("음악적 전위 기법 선택", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"])
+        m_style = st.selectbox("음악적 전위 기법 선택", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"], key="m_style_box")
         
         st.markdown('<div class="panel-header">2. SUB RHYTHM STYLE</div>', unsafe_allow_html=True)
-        s_style = st.selectbox("보조 음악 스타일", list(STYLE_DB["sub_styles"].keys()))
+        s_style = st.selectbox("보조 음악 스타일", list(STYLE_DB["sub_styles"].keys()), key="s_style_box")
         
         st.markdown('<div class="panel-header">3. PHILOSOPHY SEED (디지털 천지공사)</div>', unsafe_allow_html=True)
         title = st.text_input("제목 (TITLE)", "개벽의 소리")
@@ -111,9 +166,9 @@ def main():
 
     with t2:
         st.markdown('<div class="panel-header">SOUND ARCHITECTURE</div>', unsafe_allow_html=True)
-        k_sel = st.multiselect("국악기 (KOREAN)", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Taepyeongso", "Daebuk", "Gayageum"])
-        w_sel = st.multiselect("서양악기 (WESTERN)", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Double_Bass", "Synth_Chaos", "Epic_Choir"])
-        v_key = st.selectbox("보컬 리추얼 (VOCAL)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"])
+        k_sel = st.multiselect("국악기 (KOREAN)", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Taepyeongso", "Daebuk", "Gayageum"], key="k_inst_box")
+        w_sel = st.multiselect("서양악기 (WESTERN)", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Double_Bass", "Synth_Chaos", "Epic_Choir"], key="w_inst_box")
+        v_key = st.selectbox("보컬 리추얼 (VOCAL)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"], key="vocal_box")
 
     with t3:
         if st.button("🔥 INVOKE THE CORE RITUAL"):
@@ -130,7 +185,7 @@ def main():
             st.markdown('<div class="panel-header">1. MASTER STYLE PROMPT (사운드 프롬프트)</div>', unsafe_allow_html=True)
             st.code(st.session_state["p"], language="text")
             
-            st.markdown('<div class="panel-header">2. CHEONJI-GONGSA NARRATIVE (디지털 천지공사 가사)</div>', unsafe_allow_header=True)
+            st.markdown('<div class="panel-header">2. CHEONJI-GONGSA NARRATIVE (디지털 천지공사 가사)</div>', unsafe_allow_html=True)
             st.code(st.session_state["s"], language="text")
 
 if __name__ == "__main__":
