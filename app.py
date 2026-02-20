@@ -3,10 +3,10 @@ import random
 import re
 
 # [CRITICAL] PAGE CONFIG MUST BE FIRST
-st.set_page_config(page_title="JSON RITUAL v7.5", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v7.6", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v7.5 [UNIVERSAL RITUAL FINAL]
+#  PROJECT JSON RITUAL v7.6 [THE INFINITE VOICES]
 # ==========================================================
 
 STYLE_DB = {
@@ -59,16 +59,21 @@ STYLE_DB = {
         "Turntable": "turntable scratches, foley noise"
     },
     "vocal_rituals": {
-        "Shaman_Growl": {"label": "샤먼/주술 보컬", "tag": "male shamanic growl, ritualistic chanting"},
-        "Pansori_Doseong": {"label": "판소리 도성", "tag": "pansori vocal, traditional Korean singing, husky"},
-        "Experimental_Vox": {"label": "전위 발성 [Avant-Garde]", "tag": "avant-garde vocalizations, abstract voices, screaming, whispering"},
-        "Monastic_Chant": {"label": "단조로운 주문 [Chant]", "tag": "monotone ritual chant, hypnotic drone"},
-        "Ethereal_Soprano": {"label": "청아한 소프라노", "tag": "ethereal clear soprano, operatic"},
-        "Male_Rock_Raspy": {"label": "남성 로우 록", "tag": "raspy male rock vocal, powerful"},
-        "Male_Deep_Bass": {"label": "남성 딥 베이스", "tag": "deep baritone male vocal, resonant"},
-        "Female_Soulful": {"label": "여성 소울풀", "tag": "soulful female vocal, deep alto"},
-        "Infinite_Delay_Vox": {"label": "에코/나레이션", "tag": "spoken word with heavy delay, mystical"},
-        "Industrial_Vocals": {"label": "인더스트리얼 보컬", "tag": "distorted vocals, mechanical, aggressive"}
+        "Avant_Screams": {"label": "전위적 괴성 [Experimental Screams]", "tag": "avant-garde screams, abstract vocalizations, shouting, dissonant voices"},
+        "Shaman_Deep_Growl": {"label": "샤먼/주술 낮고 거친목소리", "tag": "male shamanic growl, ritualistic deep chanting, primal"},
+        "Pansori_Husky": {"label": "허스키한 판소리 도성", "tag": "pansori vocal, traditional Korean singing, husky, powerful vibration"},
+        "Clear_Ethereal_Soprano": {"label": "청아한 소프라노 [Ethereal]", "tag": "clear ethereal soprano, heavenly female voice, operatic"},
+        "Pure_Children_Choir": {"label": "청아한 소년/소녀 합창", "tag": "pure children choir, ethereal boys choir, innocent"},
+        "Husky_Rock_Vocal": {"label": "거친 허스키 록 보컬", "tag": "raspy husky male rock vocal, powerful, gritty"},
+        "Deep_Baritone_Void": {"label": "낮고 깊은 바리톤 [Void]", "tag": "exceptionally deep male baritone, resonant, mystical"},
+        "Monastic_Drone_Chant": {"label": "단조로운 주문 [Monastic]", "tag": "monotone ritual chant, hypnotic drone, temple atmosphere"},
+        "Soulful_Deep_Alto": {"label": "소울풀한 깊은 여성보컬", "tag": "soulful deep alto female vocal, expressive, earthy"},
+        "Hypnotic_Whispers": {"label": "몽환적인 속삭임 [Whispers]", "tag": "hypnotic whispers, mysterious breathing sound, ASMR texture"},
+        "Spoken_Epic_Narration": {"label": "나레이션/대서사 낭독", "tag": "grand spoken word narrative, mystical dry narration, poetic"},
+        "Industrial_Glitch_Vox": {"label": "인더스트리얼 변조 보컬", "tag": "distorted industrial vocals, mechanical, glitchy robotic voices"},
+        "Grand_Epic_Choir": {"label": "웅장한 대규모 합창", "tag": "grand epic cinematic choir, powerful harmony"},
+        "Cybernetic_AI_Voice": {"label": "사이버네틱 AI 목소리", "tag": "cybernetic artificial voice, synthesized monotone"},
+        "Traditional_Buddhist_Chant": {"label": "전통 범패/염불", "tag": "traditional Buddhist chant, Beompae ritual singing"}
     },
 }
 
@@ -127,10 +132,10 @@ def main():
 
     with t1:
         st.markdown('<div class="panel-header">1. MASTER AVANT-GARDE STYLE</div>', unsafe_allow_html=True)
-        m_style = st.selectbox("음악적 전위 기법 고정", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"], key="m_style")
+        m_style = st.selectbox("음악적 전위 기법 선택", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"], key="m_style")
         
-        st.markdown('<div class="panel-header">2. SUB STYLE ARCHIVE (보조 음악 스타일)</div>', unsafe_allow_html=True)
-        s_style = st.selectbox("다양한 음악적 질감 선택", list(STYLE_DB["sub_styles"].keys()), key="s_style")
+        st.markdown('<div class="panel-header">2. SUB STYLE ARCHIVE</div>', unsafe_allow_html=True)
+        s_style = st.selectbox("보조 음악 스타일 선택", list(STYLE_DB["sub_styles"].keys()), key="s_style")
         
         st.markdown('<div class="panel-header">3. PHILOSOPHY SEED</div>', unsafe_allow_html=True)
         title = st.text_input("제목 (TITLE)", "개벽의 소리")
@@ -145,10 +150,10 @@ def main():
         st.markdown('<div class="panel-header">SOUND ARCHITECTURE</div>', unsafe_allow_html=True)
         k_sel = st.multiselect("국악기 (KOREAN)", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Taepyeongso", "Daebuk", "Gayageum"], key="k_inst")
         w_sel = st.multiselect("서양악기 (WESTERN)", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Double_Bass", "Synth_Chaos", "Epic_Choir"], key="w_inst")
-        v_key = st.selectbox("보컬 리추얼 (VOCAL)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"], key="vocal")
+        v_key = st.selectbox("보컬 리추얼 (VOCAL TYPES)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"], key="vocal")
 
     with t3:
-        if st.button("🔥 INVOKE THE UNIVERSAL RITUAL"):
+        if st.button("🔥 INVOKE THE INFINITE VOICES"):
             m_t = STYLE_DB["avant_genres"][m_style]["tags"]
             s_t = STYLE_DB["sub_styles"][s_style]
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
