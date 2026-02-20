@@ -71,17 +71,21 @@ def inject_styles():
     </style>
     """, unsafe_allow_html=True)
 
-def show_box(text):
-    """Render text in a box with INLINE styles - browser CANNOT override these."""
+def show_box(text, box_id):
+    """Render text in a box with INLINE styles + JS copy button."""
     safe = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    lines = safe.split("\n")
-    html_lines = "<br>".join(lines)
+    # Use a hidden textarea for reliable clipboard copy
+    js_text = text.replace("`", "\\`").replace("\\", "\\\\").replace("$", "\\$")
+    html_lines = "<br>".join(safe.split("\n"))
     st.markdown(
-        f'<div style="background-color:#000000; color:#FFE800; border:3px solid #FFE800; '
-        f'border-radius:12px; padding:30px 35px; margin-bottom:25px; '
-        f'font-family:Noto Sans KR, sans-serif; font-size:1.3rem; line-height:2.3; '
-        f'white-space:pre-wrap; word-break:break-word;">'
-        f'{html_lines}</div>',
+        f'<div style="background-color:#000000; border:3px solid #FFE800; '
+        f'border-radius:12px; padding:30px 35px; margin-bottom:25px; position:relative;">'
+        f'<button onclick="navigator.clipboard.writeText(`{js_text}`).then(()=>{{this.innerText=\'✅\';setTimeout(()=>{{this.innerText=\'📋\'}},1500)}})" '
+        f'style="position:absolute; top:12px; right:12px; background:#FFE800; color:#000; '
+        f'border:none; border-radius:6px; padding:6px 14px; font-size:1.1rem; cursor:pointer; font-weight:bold;">📋</button>'
+        f'<div style="color:#FFE800; font-family:Noto Sans KR, sans-serif; font-size:1.3rem; '
+        f'line-height:2.3; white-space:pre-wrap; word-break:break-word;">'
+        f'{html_lines}</div></div>',
         unsafe_allow_html=True
     )
 
@@ -133,8 +137,8 @@ def main():
 
         if "p" in st.session_state:
             # INLINE HTML - BROWSER CANNOT OVERRIDE THIS
-            show_box(st.session_state["p"])
-            show_box(st.session_state["s"])
+            show_box(st.session_state["p"], "prompt")
+            show_box(st.session_state["s"], "lyrics")
 
 if __name__ == "__main__":
     main()
