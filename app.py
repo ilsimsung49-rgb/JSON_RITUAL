@@ -3,10 +3,10 @@ import random
 import re
 
 # [CRITICAL] PAGE CONFIG MUST BE FIRST
-st.set_page_config(page_title="JSON RITUAL v7.9", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v8.0", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v7.9 [THE FINAL CLARITY]
+#  PROJECT JSON RITUAL v8.0 [STABLE & CLARITY FIX]
 # ==========================================================
 
 STYLE_DB = {
@@ -24,7 +24,7 @@ STYLE_DB = {
         "Tribal": "shamanic ritual percussion",
         "Ambient": "deep space drone ambient",
         "Industrial": "harsh mechanical industrial",
-        "Psychedelic": "trippy psychedelic rock effects"
+        "Psychedelic": "trippy psychedelic rock"
     },
     "korean_instruments": {
         "Gayageum": "gayageum", "Geomungo": "geomungo", "Haegeum": "haegeum", "Daegeum": "daegeum",
@@ -38,15 +38,15 @@ STYLE_DB = {
         "Piano": "grand piano", "Violin": "solo violin", "Epic_Choir": "epic choir"
     },
     "vocal_rituals": {
-        "Shaman": "shamanic growl, ritual chanting",
-        "Pansori": "pansori vocal, traditional Korean singing",
-        "Avant": "avant-garde vocalizations, screams, whispers",
-        "Monastic": "monotone ritual chant, hypnotic",
-        "Soprano": "ethereal clear soprano",
-        "Rock": "raspy rock vocal",
-        "Deep": "deep male baritone",
-        "Soul": "soulful alto female vocal",
-        "Industrial": "distorted mechanical vocals"
+        "Shaman": {"label": "샤먼/주술 보컬", "tag": "male shamanic growl, ritualistic chanting"},
+        "Pansori": {"label": "허스키한 판소리 도성", "tag": "pansori vocal, traditional Korean singing, husky"},
+        "Avant": {"label": "전위적 발성/괴성", "tag": "avant-garde vocalizations, screams, whispers, deconstructed"},
+        "Monastic": {"label": "단조로운 주문/챈트", "tag": "monotone ritual chant, hypnotic drone"},
+        "Soprano": {"label": "청아한 소프라노", "tag": "ethereal clear soprano, operatic, heavenly"},
+        "Rock": {"label": "허스키한 록 보컬", "tag": "raspy rock vocal, powerful gritty"},
+        "Deep": {"label": "낮고 깊은 바리톤", "tag": "deep male baritone, resonant, mystical"},
+        "Soul": {"label": "소울풀한 알토", "tag": "soulful alto female vocal, expressive"},
+        "Industrial": {"label": "인더스트리얼 변조", "tag": "distorted mechanical vocals, metallic"}
     }
 }
 
@@ -60,49 +60,49 @@ def inject_final_style():
     
     .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 15px; margin-top: 30px; }
     
-    .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; margin: 20px 0; }
-    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; }
-    
-    .panel-header { font-family: 'Bebas Neue'; color: #FFE800; font-size: 2rem; border-bottom: 2px solid #555; padding-bottom: 5px; margin: 30px 0 15px 0; }
-    
-    /* INPUT FIX */
+    /* Input Styling */
     .stTextInput input, .stTextArea textarea, .stNumberInput input, div[data-baseweb="select"] > div {
         background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important;
     }
-
-    /* DROPDOWN */
-    div[data-baseweb="popover"] * { background-color: #111 !important; color: #FFF !important; }
+    
+    /* Dropdown Clarity */
+    div[data-baseweb="popover"] ul, div[data-baseweb="popover"] li {
+        background-color: #111 !important; color: #FFF !important;
+    }
     li[role="option"]:hover { background-color: #FFE800 !important; color: #000 !important; }
+    li[role="option"]:hover * { color: #000 !important; }
 
-    /* ULTIMATE RESULT AREA - NO OVERLAP */
+    /* ULTIMATE RESULT AREA - ZERO OVERLAP */
     .ritual-box {
-        background-color: #080808 !important;
+        background-color: #050505 !important;
         border: 2px solid #FFE800 !important;
         padding: 40px !important;
-        margin-bottom: 30px !important;
-        border-radius: 12px !important;
-        width: 100% !important;
-        overflow: visible !important;
-        display: block !important;
+        margin-bottom: 40px !important;
+        border-radius: 15px !important;
+        position: relative !important;
+        z-index: 99 !important;
     }
     .ritual-content {
         color: #FFE800 !important;
         font-family: 'Noto Sans KR', sans-serif !important;
-        font-size: 1.3rem !important;
-        font-weight: 500 !important;
-        line-height: 2.0 !important; /* PLENTY OF SPACE */
+        font-size: 1.4rem !important;
+        line-height: 2.2 !important; /* ULTRA CLARITY SPACE */
         white-space: pre-wrap !important;
         margin: 0 !important;
+        word-break: keep-all !important;
     }
     .ritual-label {
         font-family: 'Bebas Neue' !important;
         color: #FFFFFF !important;
-        font-size: 1.8rem !important;
+        font-size: 2rem !important;
         letter-spacing: 5px !important;
-        margin-bottom: 20px !important;
-        border-bottom: 1px solid #444 !important;
+        margin-bottom: 25px !important;
+        border-bottom: 1px solid #333 !important;
         padding-bottom: 10px !important;
     }
+    
+    .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; }
+    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -117,50 +117,47 @@ def generate_grand_narrative(title):
 def main():
     inject_final_style()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v7.9 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.0 ]</div>', unsafe_allow_html=True)
 
-    t1, t2, t3 = st.tabs(["⚡ SETUP", "🎵 STUDIO", "📖 OUTPUT"])
+    t1, t2, t3 = st.tabs(["🚀 SETUP", "🎨 STUDIO", "📖 OUTPUT"])
 
     with t1:
-        st.markdown('<div class="panel-header">1. PHILOSOPHY & MODE</div>', unsafe_allow_html=True)
-        m_style = st.selectbox("전위 예술 기법", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"])
-        s_style = st.selectbox("보조 장르 스타일", list(STYLE_DB["sub_styles"].keys()))
+        m_key = st.selectbox("전위 예술 기법", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"])
+        s_key = st.selectbox("보조 장르 스타일", list(STYLE_DB["sub_styles"].keys()))
         title = st.text_input("제목 (TITLE)", "개벽의 소리")
         context = st.text_area("SEED", "사상을 입력하세요...", height=100)
     
     with t2:
-        st.markdown('<div class="panel-header">2. SOUND DESIGN</div>', unsafe_allow_html=True)
         k_sel = st.multiselect("국악기", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Taepyeongso", "Daebuk"])
         w_sel = st.multiselect("서양악기", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Synth_Chaos"])
         v_key = st.selectbox("보컬 유형", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"])
 
     with t3:
         if st.button("🔥 INVOKE DIGITAL RITUAL (리추얼 실행)"):
-            m_tags = STYLE_DB["avant_genres"][m_style]["tags"]
-            s_tags = STYLE_DB["sub_styles"][s_style]
-            k_tags = [STYLE_DB["korean_instruments"][k] for k in k_sel]
-            w_tags = [STYLE_DB["western_instruments"][w] for w in w_sel]
-            v_tag = STYLE_DB["vocal_rituals"][v_key]["tag"]
+            m_t = STYLE_DB["avant_genres"][m_key]["tags"]
+            s_t = STYLE_DB["sub_styles"][s_key]
+            k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
+            w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
+            v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
             
-            st.session_state["p_f"] = f"{m_tags}, {s_tags}, {', '.join(k_tags + w_tags)}, {v_tag}, 120BPM, Korean lyrics"
-            st.session_state["s_f"] = generate_grand_narrative(title)
+            st.session_state["p_stable"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, 120BPM, Korean lyrics"
+            st.session_state["s_stable"] = generate_grand_narrative(title)
 
-        if "p_f" in st.session_state:
+        if "p_stable" in st.session_state:
             st.markdown(f"""
             <div class="ritual-box">
                 <div class="ritual-label">1. MASTER STYLE PROMPT</div>
-                <p class="ritual-content">{st.session_state["p_f"]}</p>
+                <p class="ritual-content">{st.session_state["p_stable"]}</p>
             </div>
             
             <div class="ritual-box">
                 <div class="ritual-label">2. MASTER RITUAL LYRICS</div>
-                <p class="ritual-content">{st.session_state["s_f"]}</p>
+                <p class="ritual-content">{st.session_state["s_stable"]}</p>
             </div>
             """, unsafe_allow_html=True)
             
-            st.markdown('<div class="panel-header">3. COPY AREA (복사용 영역)</div>', unsafe_allow_html=True)
-            st.text_area("복사하기 (Prompt)", st.session_state["p_f"], height=100)
-            st.text_area("복사하기 (Lyrics)", st.session_state["s_f"], height=200)
+            st.text_area("Prompt Copy Area", st.session_state["p_stable"], height=100)
+            st.text_area("Lyrics Copy Area", st.session_state["s_stable"], height=200)
 
 if __name__ == "__main__":
     main()
