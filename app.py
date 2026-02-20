@@ -1,10 +1,10 @@
 import streamlit as st
 
 # [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v8.8", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v8.9", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v8.8 [COPY FUNCTION RESTORATION]
+#  PROJECT JSON RITUAL v8.9 [THE COPY SYMBOL FIX]
 # ==========================================================
 
 STYLE_DB = {
@@ -72,16 +72,38 @@ def inject_styles():
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@200;400;700&family=Noto+Sans+KR:wght@300;700&display=swap');
+    
     .stApp { background-color: #000; color: #fff !important; font-family: 'Outfit', 'Noto Sans KR', sans-serif; }
     p, span, div, li, label, .stMarkdown { color: #FFFFFF !important; }
     .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 15px; margin-top: 30px; }
-    .stTextInput input, .stTextArea textarea, .stNumberInput input, div[data-baseweb="select"] > div { background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; }
+    
+    .stTextInput input, .stTextArea textarea, .stNumberInput input, div[data-baseweb="select"] > div { 
+        background-color: #111 !important; color: #FFF !important; border: 1px solid #FFE800 !important; 
+    }
+    
+    /* RESTORE COPY SYMBOL (st.code logic) & FIX OVERLAP */
+    div[data-testid="stCodeBlock"] pre {
+        background-color: #080808 !important;
+        border: 2px solid #333 !important;
+        padding: 25px !important;
+        line-height: 2.2 !important; /* CRITICAL: PREVENTS OVERLAP */
+        border-radius: 12px;
+    }
+    div[data-testid="stCodeBlock"] code {
+        color: #FFE800 !important;
+        font-family: 'Noto Sans KR', sans-serif !important;
+        font-size: 1.25rem !important;
+        white-space: pre-wrap !important;
+    }
+    /* Make the Copy Button (Symbol) more visible */
+    div[data-testid="stCodeBlock"] button {
+        background-color: rgba(255, 232, 0, 0.2) !important;
+        color: #FFE800 !important;
+        opacity: 1 !important;
+    }
+
     .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; margin: 20px 0; }
     .stButton > button:hover { background: #FFE800 !important; color: #000 !important; }
-    
-    .ritual-box { background-color: #080808 !important; border: 2px solid #FFE800 !important; padding: 40px !important; margin-bottom: 30px !important; border-radius: 12px; }
-    .ritual-content { color: #FFE800 !important; font-family: 'Noto Sans KR', sans-serif !important; font-size: 1.4rem !important; line-height: 2.2 !important; white-space: pre-wrap !important; margin: 0 !important; }
-    .ritual-label { font-family: 'Bebas Neue' !important; color: #FFFFFF !important; font-size: 1.8rem !important; letter-spacing: 5px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
     
     div[data-baseweb="popover"] * { background-color: #111 !important; color: #FFF !important; }
     li[role="option"]:hover { background-color: #FFE800 !important; color: #000 !important; }
@@ -90,7 +112,7 @@ def inject_styles():
 
 def generate_full_ritual(title):
     core = title or "개벽"
-    lyrics = f"[INTRO]\n[Professional Instrumental Session - THE GRAND RITUAL FUSION]\n[Mode: DECONSTRUCTED AVANT-GARDE]\n[Instruments: Pure expertise, NO VOCALS]\n\n"
+    lyrics = f"[INTRO]\n[Professional Instrumental Session - DECONSTRUCTED AVANT-GARDE]\n\n"
     lyrics += f"[VERSE 1 - AWAKENING]\n태초의 정적 속에서 빛이 갈라지던 그 날\n{core} 하늘에 가득히 번져나갔네\n잃어버린 시원의 기억을 다시 깨운다\n\n"
     lyrics += f"[PRE-CHORUS]\n경계 위에 서서 우리는 춤춘다\n해체되는 시간의 틈새로 흘러드는 빛\n\n"
     lyrics += f"[CHORUS - THE DIGITAL CHONJI-GONGSA]\n개벽의 소리가 온 우주를 진동시키고\n해체된 시간 속에서 우리는 다시 태어나리\n예술은 곧 운명이요 삶은 곧 {core}의 실현이다\n\n"
@@ -106,9 +128,9 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.8 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.9 ]</div>', unsafe_allow_html=True)
 
-    t1, t2, t3 = st.tabs(["🚀 SETUP", "🎨 STUDIO", "🔮 OUTPUT"])
+    t1, t2, t3 = st.tabs(["⚡ SETUP", "🎵 STUDIO", "📖 OUTPUT"])
 
     with t1:
         m_k = st.selectbox("전위 예술 기법", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"])
@@ -127,24 +149,21 @@ def main():
         v_key = st.selectbox("보컬 유형", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"])
 
     with t3:
-        if st.button("🔥 INVOKE THE FINAL RITUAL"):
+        if st.button("🔥 INVOKE FINAL RITUAL"):
             m_t = STYLE_DB["avant_genres"][m_k]["tags"]
             s_t = STYLE_DB["sub_styles"][s_k]
             k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
             w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
             v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
-            st.session_state["p_ok"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM, high fidelity"
+            st.session_state["p_ok"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM"
             st.session_state["s_ok"] = generate_full_ritual(title)
 
         if "p_ok" in st.session_state:
-            # 1. NEON DISPLAY BOXES
-            st.markdown(f'<div class="ritual-box"><div class="ritual-label">1. STYLE PROMPT</div><p class="ritual-content">{st.session_state["p_ok"]}</p></div>', unsafe_allow_html=True)
-            st.markdown(f'<div class="ritual-box"><div class="ritual-label">2. MASTER LYRICS</div><p class="ritual-content">{st.session_state["s_ok"]}</p></div>', unsafe_allow_html=True)
+            st.markdown('<div style="color:#FFF; font-family:Bebas Neue; font-size:1.5rem; margin-bottom:10px;">1. STYLE PROMPT (복사 기호는 우측 상단)</div>', unsafe_allow_html=True)
+            st.code(st.session_state["p_ok"], language="text")
             
-            # 2. RESTORED COPY AREA
-            st.markdown('<div style="color:#555; font-family:Bebas Neue; font-size:1.2rem; margin-top:40px; border-top:1px solid #333; padding-top:20px;">COPY AREA</div>', unsafe_allow_html=True)
-            st.text_area("클릭하여 프롬프트 복사", st.session_state["p_ok"], height=70)
-            st.text_area("클릭하여 가사 복사", st.session_state["s_ok"], height=200)
+            st.markdown('<div style="color:#FFF; font-family:Bebas Neue; font-size:1.5rem; margin:30px 0 10px 0;">2. MASTER LYRICS (복사 기호는 우측 상단)</div>', unsafe_allow_html=True)
+            st.code(st.session_state["s_ok"], language="text")
 
 if __name__ == "__main__":
     main()
