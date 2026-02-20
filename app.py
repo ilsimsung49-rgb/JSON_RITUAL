@@ -1,10 +1,10 @@
 import streamlit as st
 
 # [CRITICAL] PAGE CONFIG
-st.set_page_config(page_title="JSON RITUAL v8.7", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v8.8", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v8.7 [AI VOICE RESTORATION]
+#  PROJECT JSON RITUAL v8.8 [COPY FUNCTION RESTORATION]
 # ==========================================================
 
 STYLE_DB = {
@@ -63,7 +63,7 @@ STYLE_DB = {
         "Mystery_Whispers": {"label": "몽환적인 속삭임", "tag": "hypnotic whispers, breathing"},
         "Narration": {"label": "대서사 낭독", "tag": "grand spoken word narrative"},
         "Industrial_Vox": {"label": "인더스트리얼 변조", "tag": "distorted industrial vocals"},
-        "AI_Cyber_Voice": {"label": "사이버네틱 AI 목소리", "tag": "cybernetic artificial voice, synthesized monotone"},
+        "AI_Cyber_Voice": {"label": "사이버네틱 AI 목소리 [AI Voice]", "tag": "cybernetic artificial voice, synthesized monotone"},
         "Buddhist_Chant": {"label": "전통 범패/염불", "tag": "traditional Buddhist chant"}
     }
 }
@@ -106,7 +106,7 @@ def generate_full_ritual(title):
 def main():
     inject_styles()
     st.markdown('<h1 class="app-title">JSON RITUAL</h1>', unsafe_allow_html=True)
-    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.7 ]</div>', unsafe_allow_html=True)
+    st.markdown('<div style="color:#FFE800; text-align:center; letter-spacing:8px; margin-bottom:40px;">[ MASTER FUSION v8.8 ]</div>', unsafe_allow_html=True)
 
     t1, t2, t3 = st.tabs(["🚀 SETUP", "🎨 STUDIO", "🔮 OUTPUT"])
 
@@ -116,7 +116,7 @@ def main():
         title = st.text_input("제목 (TITLE)", "개벽의 소리")
         context = st.text_area("SEED", "사상을 입력하세요...", height=100)
         
-        st.markdown('<div style="color:#FFE800; font-family:Bebas Neue; font-size:1.5rem; margin-top:20px;">BPM CONTROL</div>', unsafe_allow_html=True)
+        st.markdown('<div style="color:#FFE800; font-family:Bebas Neue; font-size:1.4rem; margin-top:20px;">BPM CONTROL</div>', unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         b_min = col1.number_input("BPM Min", 40, 240, 100)
         b_max = col2.number_input("BPM Max", 40, 240, 140)
@@ -137,8 +137,14 @@ def main():
             st.session_state["s_ok"] = generate_full_ritual(title)
 
         if "p_ok" in st.session_state:
+            # 1. NEON DISPLAY BOXES
             st.markdown(f'<div class="ritual-box"><div class="ritual-label">1. STYLE PROMPT</div><p class="ritual-content">{st.session_state["p_ok"]}</p></div>', unsafe_allow_html=True)
             st.markdown(f'<div class="ritual-box"><div class="ritual-label">2. MASTER LYRICS</div><p class="ritual-content">{st.session_state["s_ok"]}</p></div>', unsafe_allow_html=True)
+            
+            # 2. RESTORED COPY AREA
+            st.markdown('<div style="color:#555; font-family:Bebas Neue; font-size:1.2rem; margin-top:40px; border-top:1px solid #333; padding-top:20px;">COPY AREA</div>', unsafe_allow_html=True)
+            st.text_area("클릭하여 프롬프트 복사", st.session_state["p_ok"], height=70)
+            st.text_area("클릭하여 가사 복사", st.session_state["s_ok"], height=200)
 
 if __name__ == "__main__":
     main()
