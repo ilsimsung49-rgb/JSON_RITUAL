@@ -3,10 +3,10 @@ import random
 import re
 
 # [CRITICAL] PAGE CONFIG MUST BE FIRST
-st.set_page_config(page_title="JSON RITUAL v7.4", page_icon="👹", layout="wide")
+st.set_page_config(page_title="JSON RITUAL v7.5", page_icon="👹", layout="wide")
 
 # ==========================================================
-#  PROJECT JSON RITUAL v7.4 [ULTIMATE VISIBILITY FIX]
+#  PROJECT JSON RITUAL v7.5 [UNIVERSAL RITUAL FINAL]
 # ==========================================================
 
 STYLE_DB = {
@@ -18,24 +18,42 @@ STYLE_DB = {
         "Experimental_Void": {"label": "전위적 허공 [VOID]", "tags": "space drone, ambient, transcendent, experimental atmosphere, minimalistic"}
     },
     "sub_styles": {
-        "Rock_Metal": "hard rock, heavy metal, distorted riffs, powerful drums",
-        "Electronic_Chaos": "glitch, heavy electronic, synthesizer chaos, modular synth",
+        "Rock": "classic rock, 70s rock, power chords",
+        "Hard_Rock": "hard rock, aggressive riffs, powerful vocals",
+        "Heavy_Metal": "heavy metal, distorted guitar, double bass drum",
+        "Death_Black_Metal": "death metal, black metal, blast beats, extreme vocals",
+        "Blues_Soul": "soulful blues, electric blues shuffle, expressive guitar",
         "Jazz_Abstract": "abstract jazz, free jazz, improvisational, complex harmony",
-        "Tribal_Shamanic": "tribal percussion, ritualistic rhythm, shamanic spirit",
-        "Dark_Techno": "dark techno, hypnotic pulse, industrial beat"
+        "Funk_Groove": "funk, slap bass, groovy rhythm",
+        "Psychedelic_Rock": "psychedelic rock, trippy effects, 60s atmosphere",
+        "EDM_Mainstage": "EDM, dance music, big room house, synthesizer drop",
+        "Psy_Trance": "psychedelic trance, hypnotic fast pulse, acid synth",
+        "Techno_Glitch": "techno, glitchy electronics, industrial beat",
+        "Dark_Ambient": "dark ambient, eerie drone, cinematic atmosphere",
+        "Industrial_Noise": "industrial noise, metallic percussion, aggression",
+        "Folk_Acoustic": "acoustic folk, fingerpicking guitar, natural sound",
+        "Orchestral_Epic": "grand orchestral, cinematic strings, epic scale",
+        "Tribal_Shamanic": "shamanic ritual, tribal percussion, ethnic chanting",
+        "Dream_Pop": "dreamy synth pop, ethereal atmosphere",
+        "HipHop_LoFi": "lo-fi hip hop, dusty beats, boom bap",
+        "Gospel_Choir": "grand gospel choir, powerful harmony",
+        "Reggae_Dub": "reggae, dub effects, deep bass line"
     },
     "korean_instruments": {
         "Gayageum": "gayageum", "Geomungo": "geomungo", "Haegeum": "haegeum", "Daegeum": "daegeum",
         "Piri": "piri", "Taepyeongso": "taepyeongso", "Beomjong": "temple bell", "Daebuk": "taiko drum",
-        "Janggu": "janggu drum", "Kkwaenggwari": "kkwaenggwari gong", "Jing": "jing large gong", "Buk": "buk barrel drum"
+        "Janggu": "janggu drum", "Kkwaenggwari": "kkwaenggwari gong", "Jing": "jing large gong", "Buk": "buk barrel drum",
+        "Sogo": "sogo small drum", "Ajaeng": "ajaeng bowed zither"
     },
     "western_instruments": {
         "Elec_Dist": "electric guitar distortion", "Elec_Lead": "lead guitar solo", 
-        "Elec_Rhythm": "rhythm guitar crunch", "Bass": "heavy bass guitar",
-        "Rock_Drums": "rock drums", "Double_Bass": "double bass drum, blast beat",
+        "Elec_Rhythm": "rhythm guitar crunch", "Acous_Guitar": "acoustic guitar",
+        "Bass": "heavy bass guitar", "Double_Bass": "double bass drum, blast beat",
+        "Rock_Drums": "rock drums", "Percussion": "extensive world percussion",
         "Synth_Chaos": "modular synthesizer noise", "808_Sub": "808 sub bass",
-        "Piano": "grand piano", "Orchestral_Strings": "orchestral strings",
-        "Epic_Choir": "epic cinematic choir", "Violin": "solo violin",
+        "Piano": "grand piano", "Rhodes": "Rhodes electric piano", "Organ": "hammond organ",
+        "Violin": "solo violin", "Cello": "deep cello solo", "Orchestral_Strings": "orchestral strings",
+        "Epic_Choir": "epic cinematic choir", "Brass_Section": "powerful brass section",
         "Harmonica": "harmonica", "Pipe_Organ": "pipe organ",
         "Drum_Machine": "TR-808 drum machine", "Sequencer": "analog sequencer",
         "Turntable": "turntable scratches, foley noise"
@@ -59,75 +77,34 @@ def inject_grand_style():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@200;400;700&family=Noto+Sans+KR:wght@300;700&display=swap');
     
-    /* Global Base */
     .stApp { background-color: #000; color: #fff !important; font-family: 'Outfit', 'Noto Sans KR', sans-serif; }
     p, span, div, li, label, .stMarkdown { color: #FFFFFF !important; }
     h1, h2, h3 { color: #FFFFFF !important; }
     .stCode { background-color: #111 !important; color: #FFE800 !important; border: 1px solid #444 !important; }
 
-    /* Title UI */
     .app-title { font-family: 'Bebas Neue'; font-size: 4.5rem; color: #FFE800 !important; text-align: center; letter-spacing: 15px; margin-top: 30px; text-shadow: 0 0 30px rgba(255, 232, 0, 0.5); }
     .app-subtitle { color: #FFE800; text-align: center; letter-spacing: 8px; opacity: 0.8; margin-bottom: 40px; }
     
-    /* Professional Button */
     .stButton > button { width: 100% !important; background: transparent !important; border: 3px solid #FFE800 !important; color: #FFE800 !important; font-family: 'Bebas Neue' !important; font-size: 2.5rem !important; height: 85px !important; transition: 0.4s; }
-    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; box-shadow: 0 0 50px #FFE800; transform: scale(1.01); }
+    .stButton > button:hover { background: #FFE800 !important; color: #000 !important; box-shadow: 0 0 50px #FFE800; }
     
-    /* Section Header */
     .panel-header { font-family: 'Bebas Neue'; color: #FFE800; font-size: 2rem; border-bottom: 2px solid #FFE800; padding-bottom: 5px; margin: 30px 0 15px 0; }
     
-    /* INPUT & DROPDOWN CRITICAL FIX */
-    /* 1. Base Input Fields */
+    /* INPUT & DROPDOWN VISIBILITY FIX */
     .stTextInput input, .stTextArea textarea, .stNumberInput input {
         background-color: #1A1A1A !important; color: #FFFFFF !important; border: 1px solid #FFE800 !important;
     }
-
-    /* 2. Selectbox & Multiselect Base */
     div[data-baseweb="select"] > div {
         background-color: #1A1A1A !important; color: #FFFFFF !important; border: 1px solid #FFE800 !important;
     }
-
-    /* 3. DROPDOWN MENU - CRITICAL VISIBILITY */
-    /* This targets the actual hovering popover menu */
-    div[data-baseweb="popover"] ul, 
-    div[data-baseweb="popover"] li, 
-    div[data-baseweb="menu"] div,
-    ul[role="listbox"] li {
-        background-color: #222222 !important; 
-        color: #FFFFFF !important;
-        font-size: 1.1rem !important;
+    div[data-baseweb="popover"] ul, div[data-baseweb="popover"] li, div[data-baseweb="menu"] div, ul[role="listbox"] li {
+        background-color: #222222 !important; color: #FFFFFF !important; font-size: 1.1rem !important;
     }
-
-    /* 4. HOVER & FOCUS state in dropdown */
-    li[role="option"]:hover, 
-    div[data-baseweb="menu"] div:hover,
-    li[aria-selected="true"] {
-        background-color: #FFE800 !important;
-        color: #000000 !important;
+    li[role="option"]:hover, div[data-baseweb="menu"] div:hover {
+        background-color: #FFE800 !important; color: #000000 !important;
     }
-
-    /* 5. Multiselect Selected Tags */
-    span[data-baseweb="tag"] {
-        background-color: #FFE800 !important;
-        color: #000000 !important;
-        font-weight: bold;
-    }
-    
-    /* 6. Fix for white text on white bg issues in some browser themes */
-    div[data-testid="stSelectbox"] * {
-        color: #FFFFFF !important;
-    }
-    div[data-baseweb="popover"] * {
-        color: #FFFFFF !important;
-    }
-    li[role="option"]:hover * {
-        color: #000000 !important;
-    }
-
-    /* Tabs Styling */
-    .stTabs [data-baseweb="tab-list"] { background-color: transparent; }
-    .stTabs [data-baseweb="tab"] { color: #888 !important; }
-    .stTabs [aria-selected="true"] { color: #FFE800 !important; border-bottom-color: #FFE800 !important; }
+    li[role="option"]:hover * { color: #000000 !important; }
+    span[data-baseweb="tag"] { background-color: #FFE800 !important; color: #000000 !important; font-weight: bold; }
     </style>
     """, unsafe_allow_html=True)
 
@@ -150,12 +127,12 @@ def main():
 
     with t1:
         st.markdown('<div class="panel-header">1. MASTER AVANT-GARDE STYLE</div>', unsafe_allow_html=True)
-        m_style = st.selectbox("음악적 전위 기법 선택", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"], key="m_style_box")
+        m_style = st.selectbox("음악적 전위 기법 고정", list(STYLE_DB["avant_genres"].keys()), format_func=lambda x: STYLE_DB["avant_genres"][x]["label"], key="m_style")
         
-        st.markdown('<div class="panel-header">2. SUB RHYTHM STYLE</div>', unsafe_allow_html=True)
-        s_style = st.selectbox("보조 음악 스타일", list(STYLE_DB["sub_styles"].keys()), key="s_style_box")
+        st.markdown('<div class="panel-header">2. SUB STYLE ARCHIVE (보조 음악 스타일)</div>', unsafe_allow_html=True)
+        s_style = st.selectbox("다양한 음악적 질감 선택", list(STYLE_DB["sub_styles"].keys()), key="s_style")
         
-        st.markdown('<div class="panel-header">3. PHILOSOPHY SEED (디지털 천지공사)</div>', unsafe_allow_html=True)
+        st.markdown('<div class="panel-header">3. PHILOSOPHY SEED</div>', unsafe_allow_html=True)
         title = st.text_input("제목 (TITLE)", "개벽의 소리")
         context = st.text_area("사상의 핵심 (SEED)", "천지공사의 내용을 입력하세요...", height=150)
         
@@ -166,26 +143,25 @@ def main():
 
     with t2:
         st.markdown('<div class="panel-header">SOUND ARCHITECTURE</div>', unsafe_allow_html=True)
-        k_sel = st.multiselect("국악기 (KOREAN)", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Taepyeongso", "Daebuk", "Gayageum"], key="k_inst_box")
-        w_sel = st.multiselect("서양악기 (WESTERN)", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Double_Bass", "Synth_Chaos", "Epic_Choir"], key="w_inst_box")
-        v_key = st.selectbox("보컬 리추얼 (VOCAL)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"], key="vocal_box")
+        k_sel = st.multiselect("국악기 (KOREAN)", list(STYLE_DB["korean_instruments"].keys()), ["Beomjong", "Taepyeongso", "Daebuk", "Gayageum"], key="k_inst")
+        w_sel = st.multiselect("서양악기 (WESTERN)", list(STYLE_DB["western_instruments"].keys()), ["Elec_Dist", "Double_Bass", "Synth_Chaos", "Epic_Choir"], key="w_inst")
+        v_key = st.selectbox("보컬 리추얼 (VOCAL)", list(STYLE_DB["vocal_rituals"].keys()), format_func=lambda x: STYLE_DB["vocal_rituals"][x]["label"], key="vocal")
 
     with t3:
-        if st.button("🔥 INVOKE THE CORE RITUAL"):
-            m_tags = STYLE_DB["avant_genres"][m_style]["tags"]
-            s_tags = STYLE_DB["sub_styles"][s_style]
-            k_tags = [STYLE_DB["korean_instruments"][k] for k in k_sel]
-            w_tags = [STYLE_DB["western_instruments"][w] for w in w_sel]
-            v_tag = STYLE_DB["vocal_rituals"][v_key]["tag"]
+        if st.button("🔥 INVOKE THE UNIVERSAL RITUAL"):
+            m_t = STYLE_DB["avant_genres"][m_style]["tags"]
+            s_t = STYLE_DB["sub_styles"][s_style]
+            k_t = [STYLE_DB["korean_instruments"][k] for k in k_sel]
+            w_t = [STYLE_DB["western_instruments"][w] for w in w_sel]
+            v_t = STYLE_DB["vocal_rituals"][v_key]["tag"]
             
-            st.session_state["p"] = f"{m_tags}, {s_tags}, {', '.join(k_tags + w_tags)}, {v_tag}, {b_min}-{b_max} BPM, Korean lyrics, high fidelity"
+            st.session_state["p"] = f"{m_t}, {s_t}, {', '.join(k_t + w_t)}, {v_t}, {b_min}-{b_max} BPM, Korean lyrics, high fidelity"
             st.session_state["s"] = generate_cheonji_narrative(title)
 
         if "p" in st.session_state:
-            st.markdown('<div class="panel-header">1. MASTER STYLE PROMPT (사운드 프롬프트)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="panel-header">1. MASTER STYLE PROMPT</div>', unsafe_allow_html=True)
             st.code(st.session_state["p"], language="text")
-            
-            st.markdown('<div class="panel-header">2. CHEONJI-GONGSA NARRATIVE (디지털 천지공사 가사)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="panel-header">2. MASTER RITUAL LYRICS</div>', unsafe_allow_html=True)
             st.code(st.session_state["s"], language="text")
 
 if __name__ == "__main__":
